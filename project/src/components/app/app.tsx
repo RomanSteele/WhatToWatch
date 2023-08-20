@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute, AuthorizationStatus } from "../../const";
 import AddReviewPage from "../../pages/add-review-page/add-review-page";
 import MainPage from "../../pages/main-page/main-page";
@@ -11,6 +12,7 @@ import PrivateRoute from "../private-route/private-route";
 
 function App(): JSX.Element {
   return (
+  <HelmetProvider>
     <BrowserRouter>
       <Routes>
     <Route
@@ -47,6 +49,7 @@ function App(): JSX.Element {
         />
       </Routes>
     </BrowserRouter>
+  </HelmetProvider>
   )
 }
 

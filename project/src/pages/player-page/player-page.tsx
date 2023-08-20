@@ -1,7 +1,16 @@
+import { Helmet } from "react-helmet-async";
 
 function PlayerPage(): JSX.Element {
 
+  const isPlaying = true;
+  const name = 'MOVIE_NAME';
+
   return <>
+
+  <Helmet>
+    <title>WTW: {isPlaying? 'Playing': 'Pause'} {name}</title>
+  </Helmet>
+
   <div className="player">
       <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
 

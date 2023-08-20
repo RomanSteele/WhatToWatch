@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import Footer from "../../components/footer/footer";
 import Logo from "../../components/logo/logo";
 import UserBlock from "../../components/user-block/user-block";
@@ -5,6 +6,11 @@ import UserBlock from "../../components/user-block/user-block";
 function MyListPage(): JSX.Element {
 
   return <>
+
+  <Helmet>
+    <title>WTW: My List</title>
+  </Helmet>
+
   <div className="user-page">
       <header className="page-header user-page__head">
 

@@ -1,11 +1,19 @@
+import { Helmet } from "react-helmet-async";
 import Footer from "../../components/footer/footer";
 import Logo from "../../components/logo/logo";
 import UserBlock from "../../components/user-block/user-block";
 
 function MoviePage(): JSX.Element {
 
-  return <>
+  const name = 'MOVIE_NAME';
+
+return <>
 <section className="film-card film-card--full">
+
+  <Helmet>
+    <title>WTW: {name}</title>
+  </Helmet>
+
       <div className="film-card__hero">
         <div className="film-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
