@@ -9,15 +9,21 @@ import NotFoundPage from "../../pages/not-found-page/not-found-page";
 import PlayerPage from "../../pages/player-page/player-page";
 import SignInPage from "../../pages/sign-in-page/sign-in-page";
 import PrivateRoute from "../private-route/private-route";
+import { Movie } from "../../types/movie";
 
-function App(): JSX.Element {
+type AppProps = {
+  movies: Movie[]
+}
+
+function App({movies}: AppProps): JSX.Element {
+
   return (
   <HelmetProvider>
     <BrowserRouter>
       <Routes>
     <Route
           path={AppRoute.Main}
-          element={<MainPage />}
+          element={<MainPage movies={movies}/>}
         />
       <Route
           path={AppRoute.Login}
@@ -32,8 +38,8 @@ function App(): JSX.Element {
         }
         />
         <Route
-          path={AppRoute.Movie}
-          element={<MoviePage />}
+          path={AppRoute.SelectedMovie}
+          element={<MoviePage movies={movies} />}
         />
       <Route
           path={AppRoute.NotFound}

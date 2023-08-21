@@ -1,7 +1,7 @@
 import { Review } from "../types/review";
 
 
-export const Movies: Review[] = [
+export const Reviews: Review[] = [
 
   {"id":1,
   "user":{"id":19,"name":"Christina"},

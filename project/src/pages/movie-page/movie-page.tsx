@@ -1,11 +1,25 @@
 import { Helmet } from "react-helmet-async";
+import {useParams} from 'react-router-dom';
 import Footer from "../../components/footer/footer";
 import Logo from "../../components/logo/logo";
 import UserBlock from "../../components/user-block/user-block";
+import { Movie } from "../../types/movie";
 
-function MoviePage(): JSX.Element {
 
-  const name = 'MOVIE_NAME';
+
+type MainPageProps = {
+  movies: Movie[]
+}
+
+
+function MoviePage({movies}: MainPageProps): JSX.Element {
+
+  const params = useParams();
+
+  const selectedMovie = movies.filter((movie) => movie.id.toString() === params.id);
+
+  const {name, posterImage, genre, released, rating, scoresCount, director, starring, description } = selectedMovie[0];
+
 
 return <>
 <section className="film-card film-card--full">
@@ -31,10 +45,10 @@ return <>
 
         <div className="film-card__wrap">
           <div className="film-card__desc">
-            <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+            <h2 className="film-card__title">{name}</h2>
             <p className="film-card__meta">
-              <span className="film-card__genre">Drama</span>
-              <span className="film-card__year">2014</span>
+              <span className="film-card__genre">{genre}</span>
+              <span className="film-card__year">{released}</span>
             </p>
 
             <div className="film-card__buttons">
@@ -59,7 +73,7 @@ return <>
       <div className="film-card__wrap film-card__translate-top">
         <div className="film-card__info">
           <div className="film-card__poster film-card__poster--big">
-            <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+            <img src={posterImage} alt={name} width="218" height="327" />
           </div>
 
           <div className="film-card__desc">
@@ -78,21 +92,19 @@ return <>
             </nav>
 
             <div className="film-rating">
-              <div className="film-rating__score">8,9</div>
+              <div className="film-rating__score">{rating}</div>
               <p className="film-rating__meta">
                 <span className="film-rating__level">Very good</span>
-                <span className="film-rating__count">240 ratings</span>
+                <span className="film-rating__count">{scoresCount} ratings</span>
               </p>
             </div>
 
             <div className="film-card__text">
-              <p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.</p>
+              <p>{description}</p>
 
-              <p>Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
+              <p className="film-card__director"><strong>Director: {director}</strong></p>
 
-              <p className="film-card__director"><strong>Director: Wes Anderson</strong></p>
-
-              <p className="film-card__starring"><strong>Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other</strong></p>
+              <p className="film-card__starring"><strong>Starring: {starring}</strong></p>
             </div>
           </div>
         </div>

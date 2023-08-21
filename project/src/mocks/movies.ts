@@ -130,7 +130,7 @@ export const Movies: Movie[] = [
 
      {name:'Moonrise Kingdom',
      posterImage:'https://9.react.pages.academy/static/film/poster/Moonrise_Kingdom.jpg',
-     previewImage:'ttps://9.react.pages.academy/static/film/preview/moonrise-kingdom.jpg',
+     previewImage:'https://9.react.pages.academy/static/film/preview/moonrise-kingdom.jpg',
      backgroundImage:'https://9.react.pages.academy/static/film/background/Moonrise_Kingdom.jpg',
      backgroundColor:'#D8E3E5',
      description:'A pair of young lovers flee their New England town, which causes a local search party to fan out to find them.',
