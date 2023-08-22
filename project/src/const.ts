@@ -30,3 +30,18 @@ export const STARS: Stars[] = [
   { 'id': 2 },
   { 'id': 1 },
 ];
+
+export enum PlayerActiveStatus {
+  RefPlay = '#play-s',
+  RefPause = '#pause',
+  Play = 'Play',
+  Pause = 'Pause'
+}
+
+export enum TimeConvertion {
+  SecondsInMinute = 60,
+  MilisecondsInSecond = 1000,
+  SetPercent = 100,
+  NumberAfterParse = 3,
+  Limit = 4,
+}

@@ -12,7 +12,7 @@ export const Movies: Movie[] = [
      scoresCount:386834,
      director:'Steven Spielberg',
      starring:['Tom Cruise','Dakota Fanning','Tim Robbins'],
-     runTime:116,
+     runTime:0.5,
      genre:'Adventure',
      released:2005,
      id:1,
