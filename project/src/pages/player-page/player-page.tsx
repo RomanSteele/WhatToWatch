@@ -1,9 +1,21 @@
 import { Helmet } from "react-helmet-async";
+import { useParams } from "react-router-dom";
+import { Movie } from "../../types/movie";
 
-function PlayerPage(): JSX.Element {
+type PlayerPageProps = {
+  movies: Movie[]
+}
+
+function PlayerPage({movies}:PlayerPageProps): JSX.Element {
+
+  const params = useParams();
+  const id = Number(params.id);
 
   const isPlaying = true;
-  const name = 'MOVIE_NAME';
+
+  const movie = movies.find((item) => item.id === id) as Movie;
+
+  const {name, videoLink} = movie;
 
   return <>
 
@@ -12,7 +24,7 @@ function PlayerPage(): JSX.Element {
   </Helmet>
 
   <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={videoLink} className="player__video" poster="img/player-poster.jpg"></video>
 
       <button type="button" className="player__exit">Exit</button>
 
