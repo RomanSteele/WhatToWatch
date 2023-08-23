@@ -3,10 +3,10 @@ import {Link, useParams, useNavigate} from 'react-router-dom';
 import Footer from "../../components/footer/footer";
 import Logo from "../../components/logo/logo";
 import MovieList from "../../components/movie-list/movie-list";
+import MoviePageTabs from "../../components/movie-page-tabs/movie-page-tabs";
 import UserBlock from "../../components/user-block/user-block";
 import { AppRoute } from "../../const";
 import { Movie } from "../../types/movie";
-
 
 
 type MainPageProps = {
@@ -20,9 +20,9 @@ function MoviePage({movies}: MainPageProps): JSX.Element {
 
   const navigate = useNavigate();
 
-  const selectedMovie = movies.filter((movie) => movie.id.toString() === params.id);
+  const selectedMovie = (movies.filter((movie) => movie.id.toString() === params.id))[0];
 
-  const {id, name, posterImage, genre, released, rating, scoresCount, director, starring, description } = selectedMovie[0];
+  const {id, name, posterImage, genre, released } = selectedMovie;
 
 
 return <>
@@ -82,37 +82,8 @@ return <>
             <img src={posterImage} alt={name} width="218" height="327" />
           </div>
 
-          <div className="film-card__desc">
-            <nav className="film-nav film-card__nav">
-              <ul className="film-nav__list">
-                <li className="film-nav__item film-nav__item--active">
-                  <a href="#" className="film-nav__link">Overview</a>
-                </li>
-                <li className="film-nav__item">
-                  <a href="#" className="film-nav__link">Details</a>
-                </li>
-                <li className="film-nav__item">
-                  <a href="#" className="film-nav__link">Reviews</a>
-                </li>
-              </ul>
-            </nav>
+          <MoviePageTabs movie={selectedMovie} />
 
-            <div className="film-rating">
-              <div className="film-rating__score">{rating}</div>
-              <p className="film-rating__meta">
-                <span className="film-rating__level">Very good</span>
-                <span className="film-rating__count">{scoresCount} ratings</span>
-              </p>
-            </div>
-
-            <div className="film-card__text">
-              <p>{description}</p>
-
-              <p className="film-card__director"><strong>Director: {director}</strong></p>
-
-              <p className="film-card__starring"><strong>Starring: {starring}</strong></p>
-            </div>
-          </div>
         </div>
       </div>
     </section>

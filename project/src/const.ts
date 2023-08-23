@@ -1,4 +1,5 @@
 import { Stars } from "./types/rating-stars";
+import { MovieTab } from "./types/tabs";
 
 export enum AppRoute {
   Main = '/',
@@ -45,3 +46,18 @@ export enum TimeConvertion {
   NumberAfterParse = 3,
   Limit = 4,
 }
+
+export const TabKeys: MovieTab[] = [
+  {
+    id: 1,
+    title: 'Overview',
+  },
+  {
+    id: 2,
+    title: 'Details',
+  },
+  {
+    id: 3,
+    title: 'Reviews',
+  },
+];
