@@ -5,6 +5,9 @@ import { updateGenre } from "../../store/action";
 import { Movie } from "../../types/movie";
 import MovieList from "../movie-list/movie-list";
 
+const FILMS_PER_STEP=8
+let moviesToRender: Movie[] = [];
+
 type CatalogGenreListProps = {
   movies: Movie[]
 }
@@ -16,10 +19,38 @@ function CatalogGenreList ({movies}: CatalogGenreListProps):JSX.Element  {
   const [genres, setGenres] = useState<string[]>([]);
   const currentGenre = useAppSelector((state) => state.genre);
 
+  const filmsOfGenre = movies.filter(({ genre }) => currentGenre === 'All genres' || currentGenre === genre)
+
+  const [step, setStep] = useState(FILMS_PER_STEP);
+  const [renderedMovies, setRenderedMovies] = useState<Movie[]>([])
+
+  const loopWithSlice = (start: number, end: number) => {
+    const slicedFilms = filmsOfGenre.slice(start, end);
+    moviesToRender = [...moviesToRender, ...slicedFilms];
+    setRenderedMovies(moviesToRender);
+  };
+
+  const handleShowMoreMovies = () => {
+    loopWithSlice(step, step + FILMS_PER_STEP);
+    setStep(step + FILMS_PER_STEP)
+  };
+
+  const changeGenre = () => {
+    moviesToRender = [];
+    setStep(FILMS_PER_STEP);
+  };
+
+
+  useEffect(()=>{
+    changeGenre()
+  }, [currentGenre]);
+
   useEffect(() => {
+    loopWithSlice(0, FILMS_PER_STEP);
+  }, [currentGenre]);
 
+  useEffect(() => {
     setGenres(['All genres', ...new Set(movies.map(({ genre }) => genre))]);
-
   }, [movies]);
 
 
@@ -37,13 +68,16 @@ function CatalogGenreList ({movies}: CatalogGenreListProps):JSX.Element  {
 
     <div className="catalog__films-list">
 
-    <MovieList movies={movies.filter(({ genre }) => currentGenre === 'All genres' || currentGenre === genre)} />
+    <MovieList movies={renderedMovies} />
 
     </div>
 
+{ filmsOfGenre.length > FILMS_PER_STEP && renderedMovies.length != filmsOfGenre.length &&
     <div className="catalog__more">
-      <button className="catalog__button" type="button">Show more</button>
+      <button onClick={handleShowMoreMovies} className="catalog__button" type="button">Show more</button>
     </div>
+}
+
   </section>
   )
 }
