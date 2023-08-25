@@ -15,10 +15,16 @@ export enum AppRoute {
 
 export enum APIRoute {
   Movies = '/films',
+  Login = '/login',
+  Logout = '/logout',
 }
 
 export enum APIType {
-  DataFetchMovies = 'data/fetchMovies'
+  DataFetchMovies = 'data/fetchMovies',
+  UserCheckAuth = 'user/checkAuth',
+  UserLogin = 'data/fetchMovies',
+  UserLogout = 'data/fetchMovies',
+  ActionClearError = 'action/clearError'
 }
 
 export enum AuthorizationStatus {
@@ -71,3 +77,5 @@ export const TabKeys: MovieTab[] = [
 ];
 
 export const GenresStart = 'All genres';
+
+export const ERROR_TIMEOUT = 3000;

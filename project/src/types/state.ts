@@ -8,4 +8,6 @@ export type AppDispatch = typeof store.dispatch;
 export type ReducerType = {
   genre: string,
   movies: Movie[],
+  authorizationStatus: string,
+  error: string | null;
 }

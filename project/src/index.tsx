@@ -2,7 +2,7 @@
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app/app';
-import { fetchMoviesAction } from './services/api-actions';
+import { fetchMoviesAction } from './store/api-actions';
 import { store } from './store';
 
 store.dispatch(fetchMoviesAction());
