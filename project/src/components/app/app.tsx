@@ -9,13 +9,14 @@ import NotFoundPage from "../../pages/not-found-page/not-found-page";
 import PlayerPage from "../../pages/player-page/player-page";
 import SignInPage from "../../pages/sign-in-page/sign-in-page";
 import PrivateRoute from "../private-route/private-route";
-import { Movie } from "../../types/movie";
+import { useAppSelector } from "../../hooks";
 
-type AppProps = {
-  movies: Movie[]
-}
 
-function App({movies}: AppProps): JSX.Element {
+
+function App(): JSX.Element {
+
+  const Movies = useAppSelector((state) => state.movies);
+  console.log(Movies)
 
   return (
   <HelmetProvider>
@@ -23,7 +24,7 @@ function App({movies}: AppProps): JSX.Element {
       <Routes>
     <Route
           path={AppRoute.Main}
-          element={<MainPage movies={movies}/>}
+          element={<MainPage movies={Movies}/>}
         />
       <Route
           path={AppRoute.Login}
@@ -33,13 +34,13 @@ function App({movies}: AppProps): JSX.Element {
           path={AppRoute.MyList}
           element={
             <PrivateRoute authorizationStatus = {AuthorizationStatus.Auth}>
-              <MyListPage movies={movies}/>
+              <MyListPage movies={Movies}/>
             </PrivateRoute>
         }
         />
         <Route
           path={AppRoute.SelectedMovie}
-          element={<MoviePage movies={movies} />}
+          element={<MoviePage movies={Movies} />}
         />
       <Route
           path={AppRoute.NotFound}
@@ -51,7 +52,7 @@ function App({movies}: AppProps): JSX.Element {
         />
         <Route
           path={AppRoute.PlayerById}
-          element={<PlayerPage movies={movies}/>}
+          element={<PlayerPage movies={Movies}/>}
         />
       </Routes>
     </BrowserRouter>

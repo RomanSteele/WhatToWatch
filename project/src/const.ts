@@ -13,6 +13,14 @@ export enum AppRoute {
   NotFound='*',
 }
 
+export enum APIRoute {
+  Movies = '/films',
+}
+
+export enum APIType {
+  DataFetchMovies = 'data/fetchMovies'
+}
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -61,3 +69,5 @@ export const TabKeys: MovieTab[] = [
     title: 'Reviews',
   },
 ];
+
+export const GenresStart = 'All genres';
