@@ -28,3 +28,13 @@ export function getRatingDescription(rating: number): string {
     'Invalid rating'
   );
 }
+
+export const validateEmail = (email: string): boolean => {
+  const emailPattern = /\S+@\S+\.\S+/;
+  return email ? emailPattern.test(email) : false;
+};
+
+export const validatePassword = (password: string): boolean => {
+  const passwordPattern = /^.*$/;
+  return password ? passwordPattern.test(password) : false;
+};

@@ -1,16 +1,17 @@
+import { AuthorizationStatus } from "../../const";
+import { useAppSelector } from "../../hooks";
+import UserBlockSignIn from "./user-block-sign-in";
+import UserBlockSignOut from "./user-block-sign-out";
 
 function UserBlock(): JSX.Element {
+
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
   return(
-    <ul className="user-block">
-    <li className="user-block__item">
-      <div className="user-block__avatar">
-        <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-      </div>
-    </li>
-    <li className="user-block__item">
-      <a className="user-block__link">Sign out</a>
-    </li>
-  </ul>
+    authorizationStatus === AuthorizationStatus.Auth ?
+    <UserBlockSignOut/>
+    :
+    <UserBlockSignIn/>
   )
 }
 
