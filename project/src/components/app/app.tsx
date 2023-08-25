@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute, AuthorizationStatus } from "../../const";
+import { AppRoute } from "../../const";
 import AddReviewPage from "../../pages/add-review-page/add-review-page";
 import MainPage from "../../pages/main-page/main-page";
 import MoviePage from "../../pages/movie-page/movie-page";
@@ -15,8 +15,8 @@ import { useAppSelector } from "../../hooks";
 
 function App(): JSX.Element {
 
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const Movies = useAppSelector((state) => state.movies);
-  console.log(Movies)
 
   return (
   <HelmetProvider>
@@ -33,7 +33,7 @@ function App(): JSX.Element {
       <Route
           path={AppRoute.MyList}
           element={
-            <PrivateRoute authorizationStatus = {AuthorizationStatus.Auth}>
+            <PrivateRoute authorizationStatus = {authorizationStatus}>
               <MyListPage movies={Movies}/>
             </PrivateRoute>
         }

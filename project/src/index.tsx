@@ -4,7 +4,10 @@ import { Provider } from 'react-redux';
 import App from './components/app/app';
 import { fetchMoviesAction } from './store/api-actions';
 import { store } from './store';
+import ErrorModalMessage from './components/error-modal-message/error-modal-message';
+import {checkAuthAction} from './store/api-actions';
 
+store.dispatch(checkAuthAction());
 store.dispatch(fetchMoviesAction());
 
 const root = ReactDOM.createRoot(
@@ -14,6 +17,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <>
     <Provider store={store}>
+      <ErrorModalMessage/>
       <App />
     </Provider>
   </>,
