@@ -3,13 +3,14 @@ import Footer from "../../components/footer/footer";
 import Logo from "../../components/logo/logo";
 import MovieList from "../../components/movie-list/movie-list";
 import UserBlock from "../../components/user-block/user-block";
-import { Movie } from "../../types/movie";
+import { useAppSelector } from "../../hooks";
 
-type MovieListProps = {
-  movies: Movie[]
-}
 
-function MyListPage({movies}:MovieListProps): JSX.Element {
+function MyListPage(): JSX.Element {
+
+  const movies = useAppSelector(({DATA}) => DATA.favoriteMovies)
+
+  console.log(movies)
 
   return <>
 

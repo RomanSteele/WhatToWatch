@@ -17,10 +17,13 @@ export enum APIRoute {
   Movies = '/films',
   Login = '/login',
   Logout = '/logout',
+  FavotireMovies = '/favorite'
 }
 
 export enum APIType {
   DataFetchMovies = 'data/fetchMovies',
+  DataFetchFavoriteMovies = 'data/fetchFavoriteMovies',
+  AddMyListMovie = 'action/addMyListFilm',
   UserCheckAuth = 'user/checkAuth',
   UserLogin = 'data/fetchMovies',
   UserLogout = 'data/fetchMovies',

@@ -13,6 +13,7 @@ export const actionData = createSlice ({
     updateGenre: (state, action) => {
       state.genre = action.payload;
     },
+
   },
 });
 

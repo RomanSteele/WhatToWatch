@@ -8,6 +8,7 @@ export type AppDispatch = typeof store.dispatch;
 
 export type Data = {
   movies: Movie[],
+  favoriteMovies: Movie[],
   error: string | null,
 };
 

@@ -9,9 +9,9 @@ import { AuthData } from '../types/auth-data.js';
 import { UserData } from '../types/user-data.js';
 import {store} from './';
 
-import { updateGenre } from './slices/action-data/action-data';
 import { requireAuthorization } from './slices/user-data/used-data';
-import { loadMovies , setError } from './slices/app-data/app-data';
+import { loadFavoriteMovies, loadMovies , setError } from './slices/app-data/app-data';
+import { PushMovieToMyList } from '../types/my-list-movie.js';
 
 
 export const clearErrorAction = createAsyncThunk(
@@ -34,6 +34,19 @@ export const fetchMoviesAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Movie[]>(APIRoute.Movies);
     dispatch(loadMovies(data));
+  },
+);
+
+export const fetchFavoriteMoviesAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+
+}>(
+  APIType.DataFetchFavoriteMovies,
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<Movie[]>(APIRoute.FavotireMovies);
+    dispatch(loadFavoriteMovies(data));
   },
 );
 
@@ -78,6 +91,18 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     dropToken();
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   },
+);
+
+export const addMyListMovie = createAsyncThunk<void, PushMovieToMyList, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  APIType.AddMyListMovie,
+  async ({ id, status }, { dispatch, extra: api }) => {
+      await api.post(`${APIRoute.FavotireMovies}/${id}/${status}`, { id, status });
+      dispatch(fetchFavoriteMoviesAction());
+    },
 );
 
 

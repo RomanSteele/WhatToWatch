@@ -36,7 +36,7 @@ function App(): JSX.Element {
           path={AppRoute.MyList}
           element={
             <PrivateRoute authorizationStatus = {authorizationStatus}>
-              <MyListPage movies={Movies}/>
+              <MyListPage />
             </PrivateRoute>
         }
         />

@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import {Link, useParams, useNavigate} from 'react-router-dom';
+import AddToMyListButton from "../../components/add-to-my-list-button/add-to-my-list-button";
 import Footer from "../../components/footer/footer";
 import Logo from "../../components/logo/logo";
 import MovieList from "../../components/movie-list/movie-list";
@@ -64,12 +65,7 @@ return <>
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list film-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
-                <span>My list</span>
-              </button>
+              <AddToMyListButton filmId={id}/>
               <Link to={AppRoute.AddReview} className="btn film-card__button">Add review</Link>
             </div>
           </div>
