@@ -10,6 +10,7 @@ export type Data = {
   movies: Movie[],
   favoriteMovies: Movie[],
   error: string | null,
+  promoMovie:Movie
 };
 
 export type UserData = {

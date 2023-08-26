@@ -10,7 +10,6 @@ function MyListPage(): JSX.Element {
 
   const movies = useAppSelector(({DATA}) => DATA.favoriteMovies)
 
-  console.log(movies)
 
   return <>
 
@@ -33,7 +32,12 @@ function MyListPage(): JSX.Element {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          <MovieList movies={movies}/>
+          {movies.length > 0 ?
+            <MovieList movies={movies}/>
+              :
+              <>
+            <h1 className="page-title ">Nothing here yet! </h1>
+            </>}
         </div>
       </section>
 

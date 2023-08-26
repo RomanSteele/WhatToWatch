@@ -17,12 +17,14 @@ export enum APIRoute {
   Movies = '/films',
   Login = '/login',
   Logout = '/logout',
-  FavotireMovies = '/favorite'
+  FavotireMovies = '/favorite',
+  PromoMovie = '/promo'
 }
 
 export enum APIType {
   DataFetchMovies = 'data/fetchMovies',
   DataFetchFavoriteMovies = 'data/fetchFavoriteMovies',
+  fataFetchPromoMovie = 'data/fataFetchPromoMovie',
   AddMyListMovie = 'action/addMyListFilm',
   UserCheckAuth = 'user/checkAuth',
   UserLogin = 'data/fetchMovies',
@@ -88,3 +90,4 @@ export enum NameSpace {
   Data = 'DATA',
   Action = 'ACTION',
 }
+

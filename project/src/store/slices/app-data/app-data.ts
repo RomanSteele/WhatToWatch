@@ -6,6 +6,25 @@ import { NameSpace } from '../../../const';
 const initialState: Data = {
   movies: [],
   favoriteMovies: [],
+  promoMovie: {
+    id: 0,
+    name: '',
+    posterImage: '',
+    previewImage: '',
+    backgroundImage: '',
+    backgroundColor: '',
+    videoLink: '',
+    previewVideoLink: '',
+    description: '',
+    rating: 0,
+    scoresCount: 0,
+    director: '',
+    starring: [''],
+    runTime: 0,
+    genre: '',
+    released: 0,
+    isFavorite: false,
+  },
   error: null,
 };
 
@@ -19,6 +38,9 @@ export const data = createSlice ({
     loadFavoriteMovies: (state, action) => {
       state.favoriteMovies = action.payload;
     },
+    loadPromoMovie: (state, action) => {
+      state.promoMovie = action.payload;
+    },
     setError: (state, action) => {
       state.error = action.payload;
     },
@@ -26,4 +48,4 @@ export const data = createSlice ({
   },
 });
 
-export const { loadMovies, setError, loadFavoriteMovies } = data.actions;
+export const { loadMovies, setError, loadFavoriteMovies, loadPromoMovie } = data.actions;

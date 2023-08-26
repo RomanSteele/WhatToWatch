@@ -10,7 +10,7 @@ import { UserData } from '../types/user-data.js';
 import {store} from './';
 
 import { requireAuthorization } from './slices/user-data/used-data';
-import { loadFavoriteMovies, loadMovies , setError } from './slices/app-data/app-data';
+import { loadFavoriteMovies, loadMovies , loadPromoMovie, setError } from './slices/app-data/app-data';
 import { PushMovieToMyList } from '../types/my-list-movie.js';
 
 
@@ -47,6 +47,19 @@ export const fetchFavoriteMoviesAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Movie[]>(APIRoute.FavotireMovies);
     dispatch(loadFavoriteMovies(data));
+  },
+);
+
+export const fetchPromoMovieAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+
+}>(
+  APIType.fataFetchPromoMovie,
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<Movie>(APIRoute.PromoMovie);
+    dispatch(loadPromoMovie(data));
   },
 );
 

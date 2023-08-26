@@ -54,9 +54,6 @@ function PlayerPage({movies}:PlayerPageProps): JSX.Element {
   const getLeftTime = (runTime: number, currentTime: number) =>
   new Date(((runTime * TimeConvertion.SecondsInMinute) - currentTime) * TimeConvertion.MilisecondsInSecond).toUTCString().split(/ /)[TimeConvertion.Limit];
 
-
-  console.log(getPercent(movie.runTime, videoTimestamp))
-
   return <>
 
   <Helmet>
