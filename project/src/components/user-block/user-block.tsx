@@ -5,7 +5,7 @@ import UserBlockSignOut from "./user-block-sign-out";
 
 function UserBlock(): JSX.Element {
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const { authorizationStatus } = useAppSelector(({ USER })=> USER);
 
   return(
     authorizationStatus === AuthorizationStatus.Auth ?

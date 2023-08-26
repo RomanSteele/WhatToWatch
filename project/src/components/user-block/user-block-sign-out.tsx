@@ -1,9 +1,11 @@
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { AppRoute, AuthorizationStatus } from "../../const";
-import { requireAuthorization } from "../../store/action";
+import { requireAuthorization } from "../../store/slices/user-data/used-data";
 
 function UserBlockSignOut ():JSX.Element {
+
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

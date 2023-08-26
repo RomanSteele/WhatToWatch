@@ -1,13 +1,14 @@
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setError } from '../../store/action';
+import { setError } from '../../store/slices/app-data/app-data';
 import './error-modal-message.css';
 
 
 
 function ErrorModalMessage ():JSX.Element | null {
 
-  const error = useAppSelector((state) => state.error);
+  const { error } = useAppSelector(({ DATA })=> DATA);
+
 
   const dispatch = useAppDispatch();
 

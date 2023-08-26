@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute } from "../../const";
 import AddReviewPage from "../../pages/add-review-page/add-review-page";
@@ -10,17 +10,19 @@ import PlayerPage from "../../pages/player-page/player-page";
 import SignInPage from "../../pages/sign-in-page/sign-in-page";
 import PrivateRoute from "../private-route/private-route";
 import { useAppSelector } from "../../hooks";
+import HistoryRouter from "../history-route/history-route";
+import browserHistory from "../browser-history";
 
 
 
 function App(): JSX.Element {
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const Movies = useAppSelector((state) => state.movies);
+  const { authorizationStatus } = useAppSelector(({ USER })=> USER);
+  const Movies = useAppSelector(({ DATA })=> DATA.movies);
 
   return (
   <HelmetProvider>
-    <BrowserRouter>
+    <HistoryRouter history = {browserHistory}>
       <Routes>
     <Route
           path={AppRoute.Main}
@@ -55,7 +57,7 @@ function App(): JSX.Element {
           element={<PlayerPage movies={Movies}/>}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   </HelmetProvider>
   )
 }

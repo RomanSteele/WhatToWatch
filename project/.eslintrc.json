@@ -21,8 +21,10 @@
         "@typescript-eslint"
     ],
     "rules": {
+      "react/jsx-uses-vars": "error",
+        "react/jsx-uses-react": "error",
         "react/react-in-jsx-scope": "off",
-        "react/no-unescaped-entities": 0 
+        "react/no-unescaped-entities": 0
     },
     "settings": {
         "react": {

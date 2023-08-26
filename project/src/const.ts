@@ -79,3 +79,9 @@ export const TabKeys: MovieTab[] = [
 export const GenresStart = 'All genres';
 
 export const ERROR_TIMEOUT = 3000;
+
+export enum NameSpace {
+  User = 'USER',
+  Data = 'DATA',
+  Action = 'ACTION',
+}

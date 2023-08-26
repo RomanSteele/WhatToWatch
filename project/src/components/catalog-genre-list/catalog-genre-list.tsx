@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GenresStart } from "../../const";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { updateGenre } from "../../store/action";
+import { updateGenre } from "../../store/slices/action-data/action-data";
 import { Movie } from "../../types/movie";
 import MovieList from "../movie-list/movie-list";
 
@@ -19,8 +19,8 @@ function CatalogGenreList ({movies}: CatalogGenreListProps):JSX.Element  {
   const [genres, setGenres] = useState<string[]>([]);
   const [step, setStep] = useState(FILMS_PER_STEP);
 
-  const currentGenre = useAppSelector((state) => state.genre);
-  const moviesOfGenre = movies.filter(({ genre }) => currentGenre === 'All genres' || currentGenre === genre)
+  const currentGenre = useAppSelector(({ACTION}) => ACTION.genre);
+  const moviesOfGenre = movies.filter(({ genre }) => currentGenre === GenresStart || currentGenre === genre)
 
   const handleShowMoreMovies = () => {
     setStep(step + FILMS_PER_STEP)

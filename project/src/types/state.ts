@@ -5,9 +5,16 @@ export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
 
-export type ReducerType = {
-  genre: string,
+
+export type Data = {
   movies: Movie[],
+  error: string | null,
+};
+
+export type UserData = {
   authorizationStatus: string,
-  error: string | null;
-}
+};
+
+export type ActionData = {
+  genre: string,
+};
