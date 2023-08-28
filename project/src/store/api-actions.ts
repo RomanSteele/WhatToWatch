@@ -1,17 +1,19 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {AppDispatch, State} from '../types/state.js';
+import {AppDispatch, State} from '../types/state';
 import {redirectToRoute} from './action';
 import {APIRoute, APIType, AppRoute, AuthorizationStatus, ERROR_TIMEOUT} from '../const';
 import {saveToken, dropToken} from '../services/token';
-import { Movie } from '../types/movie.js';
-import { AuthData } from '../types/auth-data.js';
-import { UserData } from '../types/user-data.js';
+import { Movie } from '../types/movie';
+import { AuthData } from '../types/auth-data';
+import { UserData } from '../types/user-data';
 import {store} from './';
 
 import { requireAuthorization } from './slices/user-data/used-data';
-import { loadFavoriteMovies, loadMovies , loadPromoMovie, setError } from './slices/app-data/app-data';
-import { PushMovieToMyList } from '../types/my-list-movie.js';
+import { loadFavoriteMovies, loadMovies , loadPromoMovie, loadReviews, setError } from './slices/app-data/app-data';
+import { PushMovieToMyList } from '../types/my-list-movie';
+import { addReview } from '../types/add-review';
+import { Review } from '../types/review';
 
 
 export const clearErrorAction = createAsyncThunk(
@@ -56,7 +58,7 @@ export const fetchPromoMovieAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
 
 }>(
-  APIType.fataFetchPromoMovie,
+  APIType.DataFetchPromoMovie,
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Movie>(APIRoute.PromoMovie);
     dispatch(loadPromoMovie(data));
@@ -114,6 +116,32 @@ export const addMyListMovie = createAsyncThunk<void, PushMovieToMyList, {
   APIType.AddMyListMovie,
   async ({ id, status }, { dispatch, extra: api }) => {
       await api.post(`${APIRoute.FavotireMovies}/${id}/${status}`, { id, status });
+      dispatch(fetchFavoriteMoviesAction());
+    },
+);
+
+export const fetchReviewsAction = createAsyncThunk<void, number | null, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+
+}>(
+  APIType.DataFetchReviews,
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<Review[]>(`${APIRoute.Reviews}/${id}`);
+    console.log(data)
+    dispatch(loadReviews(data));
+  },
+);
+
+export const addMovieReview = createAsyncThunk<void, addReview, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  APIType.AddMyListMovie,
+  async ({ id, comment, rating }, { dispatch, extra: api }) => {
+      await api.post(`${APIRoute.Reviews}/${id}`, { comment, rating });
       dispatch(fetchFavoriteMoviesAction());
     },
 );

@@ -2,16 +2,17 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { TabKeys } from "../../const"
 import { Movie } from "../../types/movie";
-import { Reviews } from "../../mocks/reviews";
 import MoviePageDetails from "./movie-page-details";
 import MoviePageOverview from "./movie-page-overview";
 import MoviePageReviews from "./movie-page-reviews";
+import { Review } from "../../types/review";
 
 type MoviePageTabsProps = {
   movie: Movie,
+  reviews:Review[],
 };
 
-function MoviePageTabs ({movie}: MoviePageTabsProps): JSX.Element {
+function MoviePageTabs ({movie, reviews}: MoviePageTabsProps): JSX.Element {
 
   const [isActive,setIsActive] = useState<number>(1);
 
@@ -36,7 +37,7 @@ function MoviePageTabs ({movie}: MoviePageTabsProps): JSX.Element {
 
 {isActive === TabKeys[0].id && <MoviePageOverview movie={movie}/>}
 {isActive === TabKeys[1].id && <MoviePageDetails movie={movie}/>}
-{isActive === TabKeys[2].id && <MoviePageReviews reviews={Reviews}/>}
+{isActive === TabKeys[2].id && <MoviePageReviews reviews={reviews}/>}
 
 
   </div>

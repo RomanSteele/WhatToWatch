@@ -42,7 +42,7 @@ function App(): JSX.Element {
         />
         <Route
           path={AppRoute.SelectedMovie}
-          element={<MoviePage movies={Movies} />}
+          element={<MoviePage />}
         />
       <Route
           path={AppRoute.NotFound}
@@ -50,7 +50,7 @@ function App(): JSX.Element {
         />
         <Route
           path={AppRoute.AddReview}
-          element={<AddReviewPage />}
+          element={<AddReviewPage movies={Movies}/>}
         />
         <Route
           path={AppRoute.PlayerById}

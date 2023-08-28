@@ -7,6 +7,8 @@ type MoviePageReviewsProps = {
 
 function MoviePageReviews({ reviews }: MoviePageReviewsProps): JSX.Element {
 
+  console.log(reviews)
+
   const sortedReviews = reviews.slice().sort((a, b) => (a.rating > b.rating) ? -1 : 1);
 
   const middleIndex = Math.floor(sortedReviews.length / 2);

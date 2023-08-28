@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import {Link, useParams, useNavigate} from 'react-router-dom';
 import AddToMyListButton from "../../components/add-to-my-list-button/add-to-my-list-button";
@@ -6,24 +7,37 @@ import Logo from "../../components/logo/logo";
 import MovieList from "../../components/movie-list/movie-list";
 import MoviePageTabs from "../../components/movie-page-tabs/movie-page-tabs";
 import UserBlock from "../../components/user-block/user-block";
-import { AppRoute } from "../../const";
-import { Movie } from "../../types/movie";
+import { AppRoute, AuthorizationStatus } from "../../const";
+import { useAppSelector } from "../../hooks";
+import { store } from "../../store";
+import { fetchReviewsAction } from "../../store/api-actions";
 
 
-type MainPageProps = {
-  movies: Movie[]
-}
 
 
-function MoviePage({movies}: MainPageProps): JSX.Element {
+
+function MoviePage(): JSX.Element {
+
+  const { reviews, movies } = useAppSelector(({ DATA })=> DATA);
+  const {authorizationStatus } = useAppSelector(({USER})=> USER)
 
   const params = useParams();
-
   const navigate = useNavigate();
 
   const selectedMovie = (movies.filter((movie) => movie.id.toString() === params.id))[0];
 
   const {id, name, posterImage, genre, released } = selectedMovie;
+
+  console.log(reviews)
+
+  useEffect(() => {
+    if (!selectedMovie) {
+      navigate(AppRoute.NotFound);
+      return;
+    }
+    console.log('dispatch')
+    store.dispatch(fetchReviewsAction(id));
+  }, [selectedMovie, navigate]);
 
 
 return <>
@@ -66,7 +80,7 @@ return <>
                 <span>Play</span>
               </button>
               <AddToMyListButton filmId={id}/>
-              <Link to={AppRoute.AddReview} className="btn film-card__button">Add review</Link>
+              {authorizationStatus === AuthorizationStatus.Auth ? <Link className="btn film-card__button"to={`/movie/${id}/review`}>Add review</Link>: ''}
             </div>
           </div>
         </div>
@@ -78,7 +92,7 @@ return <>
             <img src={posterImage} alt={name} width="218" height="327" />
           </div>
 
-          <MoviePageTabs movie={selectedMovie} />
+          <MoviePageTabs movie={selectedMovie} reviews={reviews} />
 
         </div>
       </div>

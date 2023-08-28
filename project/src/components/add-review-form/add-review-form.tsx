@@ -1,10 +1,31 @@
-import React, { useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { STARS } from "../../const";
+import { store } from "../../store";
+import { addMovieReview } from "../../store/api-actions";
+import { addReview } from "../../types/add-review";
 
-function AddReviewForm ():JSX.Element {
+const enum CommentLength {
+  Min = 50,
+  Max = 400,
+}
+
+const enum StarsStart {
+  start = 0,
+}
+
+type AddReviewFormProps = {
+  movieId: number,
+}
+
+
+function AddReviewForm ({ movieId } : AddReviewFormProps):JSX.Element {
+
+  const navigate = useNavigate();
 
   const [ratingData, setRatingData] = useState(0);
   const [commentData, setCommentData] = useState('');
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
 
 
   const hanldeMouseClick = (id: number) => {
@@ -16,17 +37,37 @@ function AddReviewForm ():JSX.Element {
     setCommentData(enteredComment);
   };
 
-  const handleSubmit = () => {
-    console.log({
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    const sendOnSubmit = ({ id, comment, rating }: addReview) => {
+      store.dispatch(addMovieReview({ id, comment, rating }));
+
+    };
+
+
+    if ( !isDisabled ) {
+      sendOnSubmit(
+        {
+          id: movieId,
           rating: ratingData,
           comment: commentData,
-    })
-      }
+        });
+    }
+    navigate(-1)
+  };
 
+  useEffect (() => {
+    setIsDisabled(
+      ratingData === StarsStart.start ||
+      commentData.length < CommentLength.Min ||
+      commentData.length > CommentLength.Max,
+    );
+  }, [ ratingData, commentData ]);
 
 
   return(
-    <form action="#" className="add-review__form">
+    <form onSubmit={handleSubmit} action="#" className="add-review__form">
           <div className="rating">
             <div className="rating__stars">
 
@@ -43,7 +84,7 @@ function AddReviewForm ():JSX.Element {
           <div className="add-review__text">
             <textarea onChange={handleCommentAdd} value={commentData} className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text">{commentData}</textarea>
             <div className="add-review__submit">
-              <button onClick={()=> {handleSubmit()}} className="add-review__btn" type="submit">Post</button>
+              <button disabled={isDisabled} className="add-review__btn" type="submit">Post</button>
             </div>
 
           </div>

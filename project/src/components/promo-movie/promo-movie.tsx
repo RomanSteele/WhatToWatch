@@ -12,7 +12,6 @@ function PromoMovie ():JSX.Element {
 
   const {name, id, posterImage, genre, released,} = promoMovie;
 
-  console.log(promoMovie)
   return(
   <div className="film-card__info">
         <div className="film-card__poster">

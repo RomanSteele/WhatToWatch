@@ -6,6 +6,7 @@ import UserBlock from "../../components/user-block/user-block";
 import { useAppSelector } from "../../hooks";
 
 
+
 function MyListPage(): JSX.Element {
 
   const movies = useAppSelector(({DATA}) => DATA.favoriteMovies)
@@ -16,6 +17,7 @@ function MyListPage(): JSX.Element {
   <Helmet>
     <title>WTW: My List</title>
   </Helmet>
+
 
   <div className="user-page">
       <header className="page-header user-page__head">
