@@ -36,7 +36,7 @@ function CatalogGenreList ({movies}: CatalogGenreListProps):JSX.Element  {
     <h2 className="catalog__title visually-hidden">Catalog</h2>
 
     <ul className="catalog__genres-list">
-      {genres.map((item)=>
+      {genres.slice(0,10).map((item)=>
       <li key={item} className={`catalog__genres-item ${currentGenre === item ? 'catalog__genres-item--active' : ''} `} onClick={()=> dispatch(updateGenre(item))}>
         <Link to='' className="catalog__genres-link">{item}</Link>
       </li>
