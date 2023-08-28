@@ -27,6 +27,7 @@ export enum APIType {
   DataFetchFavoriteMovies = 'data/fetchFavoriteMovies',
   DataFetchPromoMovie = 'data/fetchPromoMovie',
   DataFetchSimilarMovies = 'data/fetchSimilarMovies',
+  DataFetchCurrentMovie = 'data/fetchCurrentMovie',
   DataFetchReviews = 'data/fetchReviews',
   AddMyListMovie = 'action/addMyListFilm',
   UserCheckAuth = 'user/checkAuth',

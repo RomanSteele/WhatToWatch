@@ -1,13 +1,19 @@
 import { FormEvent, useRef } from "react";
 import { Helmet } from "react-helmet-async";
+import { Navigate } from "react-router-dom";
 import Footer from "../../components/footer/footer";
 import Logo from "../../components/logo/logo";
+import { AppRoute, AuthorizationStatus } from "../../const";
 import { validateEmail, validatePassword } from "../../helpers";
 import { useAppDispatch } from "../../hooks";
 import { loginAction } from "../../store/api-actions";
 import { AuthData } from "../../types/auth-data";
 
-function SignInPage(): JSX.Element {
+type SignInPageProps = {
+  authorizationStatus: string;
+}
+
+function SignInPage({authorizationStatus}:SignInPageProps): JSX.Element {
 
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -37,7 +43,15 @@ function SignInPage(): JSX.Element {
     }
   };
 
-  return <>
+  return (
+
+    authorizationStatus === AuthorizationStatus.Auth ?
+
+    <Navigate to={AppRoute.Main}/>
+
+    :
+
+  <>
 
   <Helmet>
     <title>WTW: Sign In</title>
@@ -73,6 +87,7 @@ function SignInPage(): JSX.Element {
 
     </div>
   </>
+  )
     }
 
     export default SignInPage;

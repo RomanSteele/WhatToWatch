@@ -30,7 +30,7 @@ function App(): JSX.Element {
         />
       <Route
           path={AppRoute.Login}
-          element={<SignInPage />}
+          element= {<SignInPage authorizationStatus={authorizationStatus}/>}
         />
       <Route
           path={AppRoute.MyList}
@@ -50,7 +50,7 @@ function App(): JSX.Element {
         />
         <Route
           path={AppRoute.AddReview}
-          element={<AddReviewPage movies={Movies}/>}
+          element={<AddReviewPage />}
         />
         <Route
           path={AppRoute.PlayerById}

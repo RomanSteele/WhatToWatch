@@ -7,6 +7,25 @@ const initialState: Data = {
   movies: [],
   favoriteMovies: [],
   similarMovies: [],
+  currentMovie:{
+    id: 0,
+    name: '',
+    posterImage: '',
+    previewImage: '',
+    backgroundImage: '',
+    backgroundColor: '',
+    videoLink: '',
+    previewVideoLink: '',
+    description: '',
+    rating: 0,
+    scoresCount: 0,
+    director: '',
+    starring: [''],
+    runTime: 0,
+    genre: '',
+    released: 0,
+    isFavorite: false,
+  },
   reviews: [],
   promoMovie: {
     id: 0,
@@ -49,6 +68,9 @@ export const data = createSlice ({
     loadPromoMovie: (state, action) => {
       state.promoMovie = action.payload;
     },
+    loadCurrentMovie: (state, action) => {
+      state.currentMovie = action.payload;
+    },
     setError: (state, action) => {
       state.error = action.payload;
     },
@@ -56,4 +78,4 @@ export const data = createSlice ({
   },
 });
 
-export const { loadMovies, setError, loadFavoriteMovies, loadPromoMovie, loadReviews, loadSimilarMovies } = data.actions;
+export const { loadMovies, setError, loadFavoriteMovies, loadPromoMovie, loadReviews, loadSimilarMovies, loadCurrentMovie } = data.actions;

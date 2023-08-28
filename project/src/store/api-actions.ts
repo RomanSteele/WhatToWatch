@@ -10,10 +10,11 @@ import { UserData } from '../types/user-data';
 import {store} from './';
 
 import { requireAuthorization } from './slices/user-data/used-data';
-import { loadFavoriteMovies, loadMovies , loadPromoMovie, loadReviews, loadSimilarMovies, setError } from './slices/app-data/app-data';
+import { loadCurrentMovie, loadFavoriteMovies, loadMovies , loadPromoMovie, loadReviews, loadSimilarMovies, setError } from './slices/app-data/app-data';
 import { PushMovieToMyList } from '../types/my-list-movie';
 import { addReview } from '../types/add-review';
 import { Review } from '../types/review';
+import { changeLoadingStatus } from './slices/action-data/action-data';
 
 
 export const clearErrorAction = createAsyncThunk(
@@ -75,6 +76,19 @@ export const fetchSimilarMoviesAction = createAsyncThunk<void, number | null, {
   async (id, {dispatch, extra: api}) => {
     const {data} = await api.get<Movie[]>(`${APIRoute.Movies}/${id}/similar`);
     dispatch(loadSimilarMovies(data));
+  },
+);
+
+export const fetchCurrentMovieAction = createAsyncThunk<void, number | null, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+
+}>(
+  APIType.DataFetchCurrentMovie,
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<Movie>(`${APIRoute.Movies}/${id}`);
+    dispatch(loadCurrentMovie(data));
   },
 );
 
@@ -142,7 +156,6 @@ export const fetchReviewsAction = createAsyncThunk<void, number | null, {
   APIType.DataFetchReviews,
   async (id, {dispatch, extra: api}) => {
     const {data} = await api.get<Review[]>(`${APIRoute.Reviews}/${id}`);
-    console.log(data)
     dispatch(loadReviews(data));
   },
 );
@@ -154,9 +167,10 @@ export const addMovieReview = createAsyncThunk<void, addReview, {
 }>(
   APIType.AddMyListMovie,
   async ({ id, comment, rating }, { dispatch, extra: api }) => {
+    dispatch(changeLoadingStatus(false));
       await api.post(`${APIRoute.Reviews}/${id}`, { comment, rating });
+      dispatch(changeLoadingStatus(true));
       dispatch(fetchFavoriteMoviesAction());
     },
 );
-
 

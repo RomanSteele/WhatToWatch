@@ -10,7 +10,7 @@ import UserBlock from "../../components/user-block/user-block";
 import { AppRoute, AuthorizationStatus } from "../../const";
 import { useAppSelector } from "../../hooks";
 import { store } from "../../store";
-import { fetchReviewsAction, fetchSimilarMoviesAction } from "../../store/api-actions";
+import { fetchCurrentMovieAction, fetchReviewsAction, fetchSimilarMoviesAction } from "../../store/api-actions";
 
 
 
@@ -19,30 +19,41 @@ import { fetchReviewsAction, fetchSimilarMoviesAction } from "../../store/api-ac
 function MoviePage(): JSX.Element {
 
 
-  const { reviews, movies, similarMovies } = useAppSelector(({ DATA })=> DATA);
-  const {authorizationStatus } = useAppSelector(({USER})=> USER)
 
-  const params = useParams();
   const navigate = useNavigate();
+  const params = useParams();
+  const movieId = Number(params.id);
 
-  const selectedMovie = (movies.filter((movie) => movie.id.toString() === params.id))[0];
+  const selectedMovie = useAppSelector(({DATA})=> DATA.currentMovie)
+  const { reviews, similarMovies } = useAppSelector(({ DATA })=> DATA);
+  const { authorizationStatus } = useAppSelector(({ USER }) => USER);
 
-  const {id, name, posterImage, genre, released, backgroundImage } = selectedMovie;
 
-  console.log(reviews)
+  const similarMoviesToRender = similarMovies.slice(0,4);
+
+
+  const { id, name, posterImage, genre, released, backgroundImage } = selectedMovie;
 
   useEffect(() => {
     if (!selectedMovie) {
       navigate(AppRoute.NotFound);
       return;
     }
-    console.log('dispatch')
-    store.dispatch(fetchReviewsAction(id));
-    store.dispatch(fetchSimilarMoviesAction(id));
-  }, [selectedMovie, navigate]);
+    window.scrollTo(0, 0);
+  }, [movieId, navigate]);
 
 
-  window.scrollTo(0, 0)
+
+  useEffect (() => {
+    if (params.id) {
+      store.dispatch(fetchCurrentMovieAction(movieId));
+      store.dispatch(fetchReviewsAction(movieId));
+      store.dispatch(fetchSimilarMoviesAction(movieId));
+    }
+  }, [params.id]);
+
+
+
 
 return <>
 <section className="film-card film-card--full">
@@ -107,7 +118,7 @@ return <>
         <h2 className="catalog__title">More like this</h2>
 
         <div className="catalog__films-list">
-          <MovieList movies={similarMovies.slice(0,4)}/>
+          <MovieList movies={similarMoviesToRender}/>
         </div>
       </section>
 

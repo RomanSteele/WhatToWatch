@@ -4,6 +4,7 @@ import { GenresStart, NameSpace } from '../../../const';
 
 const initialState: ActionData = {
   genre: GenresStart,
+  isLoading: true,
 };
 
 export const actionData = createSlice ({
@@ -13,8 +14,11 @@ export const actionData = createSlice ({
     updateGenre: (state, action) => {
       state.genre = action.payload;
     },
+    changeLoadingStatus: (state, action) => {
+      state.isLoading = action.payload;
+    },
 
   },
 });
 
-export const { updateGenre } = actionData.actions;
+export const { updateGenre , changeLoadingStatus } = actionData.actions;

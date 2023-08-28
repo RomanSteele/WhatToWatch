@@ -1,6 +1,7 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { STARS } from "../../const";
+import { AppRoute, STARS } from "../../const";
+import { useAppSelector } from "../../hooks";
 import { store } from "../../store";
 import { addMovieReview } from "../../store/api-actions";
 import { addReview } from "../../types/add-review";
@@ -26,6 +27,8 @@ function AddReviewForm ({ movieId } : AddReviewFormProps):JSX.Element {
   const [ratingData, setRatingData] = useState(0);
   const [commentData, setCommentData] = useState('');
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
+
+  const sendStatus = useAppSelector(({ ACTION }) => ACTION.isLoading);
 
 
   const hanldeMouseClick = (id: number) => {
@@ -54,7 +57,7 @@ function AddReviewForm ({ movieId } : AddReviewFormProps):JSX.Element {
           comment: commentData,
         });
     }
-    navigate(-1)
+    navigate(`${AppRoute.Movie}/${movieId}`)
   };
 
   useEffect (() => {
@@ -67,7 +70,7 @@ function AddReviewForm ({ movieId } : AddReviewFormProps):JSX.Element {
 
 
   return(
-    <form onSubmit={handleSubmit} action="#" className="add-review__form">
+    <form onSubmit={handleSubmit} action="#" className={` ${sendStatus ? 'add-review__form' : 'add-review__form-disabled'}`}>
           <div className="rating">
             <div className="rating__stars">
 
@@ -84,7 +87,7 @@ function AddReviewForm ({ movieId } : AddReviewFormProps):JSX.Element {
           <div className="add-review__text">
             <textarea onChange={handleCommentAdd} value={commentData} className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text">{commentData}</textarea>
             <div className="add-review__submit">
-              <button disabled={isDisabled} className="add-review__btn" type="submit">Post</button>
+              <button disabled={isDisabled|| !sendStatus} className="add-review__btn" type="submit">Post</button>
             </div>
 
           </div>

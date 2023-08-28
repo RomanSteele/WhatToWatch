@@ -11,6 +11,7 @@ export type Data = {
   movies: Movie[],
   favoriteMovies: Movie[],
   similarMovies: Movie[],
+  currentMovie: Movie,
   reviews: Review[],
   error: string | null,
   promoMovie:Movie
@@ -22,4 +23,5 @@ export type UserData = {
 
 export type ActionData = {
   genre: string,
+  isLoading: boolean,
 };

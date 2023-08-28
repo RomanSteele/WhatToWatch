@@ -1,30 +1,35 @@
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import AddReviewForm from "../../components/add-review-form/add-review-form";
 import Breadcrumbs from "../../components/breadcrumbs/breadcrumbs";
 import Logo from "../../components/logo/logo";
 import Userblock from "../../components/user-block/user-block";
-import { Movie } from "../../types/movie";
-
-type AddReviewPageProps = {
-  movies: Movie[];
-};
+import { useAppSelector } from "../../hooks";
+import { store } from "../../store";
+import { fetchCurrentMovieAction } from "../../store/api-actions";
 
 
-function AddReviewPage({ movies }:AddReviewPageProps): JSX.Element {
+function AddReviewPage(): JSX.Element {
 
-  const { id } = useParams() as {
-    id: string;
-  };
-  const numericId = parseInt(id, 10);
+  const params = useParams();
+  const movieId = Number(params.id);
 
-  const  currentMovie = movies.find((item) => item.id === numericId);
+  const selectedMovie = useAppSelector(({DATA})=> DATA.currentMovie)
 
-  const { name, previewImage, posterImage } = currentMovie as {
-  name: Movie['name'],
-  previewImage: Movie['previewImage'],
-  posterImage: Movie['posterImage'],
-};
+
+
+
+  const {  name, posterImage, previewImage } = selectedMovie;
+
+
+
+  useEffect (() => {
+    if (params.id) {
+      store.dispatch(fetchCurrentMovieAction(movieId));
+
+    }
+  }, [params.id]);
 
 
   return (
@@ -44,7 +49,7 @@ function AddReviewPage({ movies }:AddReviewPageProps): JSX.Element {
         <header className="page-header">
           <Logo/>
 
-          <Breadcrumbs movieName={name} movieId={numericId}/>
+          <Breadcrumbs movieName={name} movieId={movieId}/>
 
           <Userblock/>
 
@@ -56,7 +61,7 @@ function AddReviewPage({ movies }:AddReviewPageProps): JSX.Element {
       </div>
 
       <div className="add-review">
-        <AddReviewForm movieId={numericId} />
+        <AddReviewForm movieId={movieId} />
       </div>
 
     </section>
