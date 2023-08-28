@@ -6,6 +6,7 @@ import { NameSpace } from '../../../const';
 const initialState: Data = {
   movies: [],
   favoriteMovies: [],
+  similarMovies: [],
   reviews: [],
   promoMovie: {
     id: 0,
@@ -39,6 +40,9 @@ export const data = createSlice ({
     loadFavoriteMovies: (state, action) => {
       state.favoriteMovies = action.payload;
     },
+    loadSimilarMovies: (state, action) => {
+      state.similarMovies = action.payload;
+    },
     loadReviews: (state, action) => {
       state.reviews = action.payload;
     },
@@ -52,4 +56,4 @@ export const data = createSlice ({
   },
 });
 
-export const { loadMovies, setError, loadFavoriteMovies, loadPromoMovie, loadReviews } = data.actions;
+export const { loadMovies, setError, loadFavoriteMovies, loadPromoMovie, loadReviews, loadSimilarMovies } = data.actions;

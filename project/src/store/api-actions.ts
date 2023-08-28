@@ -10,7 +10,7 @@ import { UserData } from '../types/user-data';
 import {store} from './';
 
 import { requireAuthorization } from './slices/user-data/used-data';
-import { loadFavoriteMovies, loadMovies , loadPromoMovie, loadReviews, setError } from './slices/app-data/app-data';
+import { loadFavoriteMovies, loadMovies , loadPromoMovie, loadReviews, loadSimilarMovies, setError } from './slices/app-data/app-data';
 import { PushMovieToMyList } from '../types/my-list-movie';
 import { addReview } from '../types/add-review';
 import { Review } from '../types/review';
@@ -62,6 +62,19 @@ export const fetchPromoMovieAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Movie>(APIRoute.PromoMovie);
     dispatch(loadPromoMovie(data));
+  },
+);
+
+export const fetchSimilarMoviesAction = createAsyncThunk<void, number | null, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+
+}>(
+  APIType.DataFetchSimilarMovies,
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<Movie[]>(`${APIRoute.Movies}/${id}/similar`);
+    dispatch(loadSimilarMovies(data));
   },
 );
 

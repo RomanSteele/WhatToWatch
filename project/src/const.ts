@@ -25,7 +25,8 @@ export enum APIRoute {
 export enum APIType {
   DataFetchMovies = 'data/fetchMovies',
   DataFetchFavoriteMovies = 'data/fetchFavoriteMovies',
-  DataFetchPromoMovie = 'data/fataFetchPromoMovie',
+  DataFetchPromoMovie = 'data/fetchPromoMovie',
+  DataFetchSimilarMovies = 'data/fetchSimilarMovies',
   DataFetchReviews = 'data/fetchReviews',
   AddMyListMovie = 'action/addMyListFilm',
   UserCheckAuth = 'user/checkAuth',

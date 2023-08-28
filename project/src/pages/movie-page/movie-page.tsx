@@ -10,7 +10,7 @@ import UserBlock from "../../components/user-block/user-block";
 import { AppRoute, AuthorizationStatus } from "../../const";
 import { useAppSelector } from "../../hooks";
 import { store } from "../../store";
-import { fetchReviewsAction } from "../../store/api-actions";
+import { fetchReviewsAction, fetchSimilarMoviesAction } from "../../store/api-actions";
 
 
 
@@ -18,7 +18,8 @@ import { fetchReviewsAction } from "../../store/api-actions";
 
 function MoviePage(): JSX.Element {
 
-  const { reviews, movies } = useAppSelector(({ DATA })=> DATA);
+
+  const { reviews, movies, similarMovies } = useAppSelector(({ DATA })=> DATA);
   const {authorizationStatus } = useAppSelector(({USER})=> USER)
 
   const params = useParams();
@@ -26,7 +27,7 @@ function MoviePage(): JSX.Element {
 
   const selectedMovie = (movies.filter((movie) => movie.id.toString() === params.id))[0];
 
-  const {id, name, posterImage, genre, released } = selectedMovie;
+  const {id, name, posterImage, genre, released, backgroundImage } = selectedMovie;
 
   console.log(reviews)
 
@@ -37,8 +38,11 @@ function MoviePage(): JSX.Element {
     }
     console.log('dispatch')
     store.dispatch(fetchReviewsAction(id));
+    store.dispatch(fetchSimilarMoviesAction(id));
   }, [selectedMovie, navigate]);
 
+
+  window.scrollTo(0, 0)
 
 return <>
 <section className="film-card film-card--full">
@@ -49,7 +53,7 @@ return <>
 
       <div className="film-card__hero">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={backgroundImage} alt={name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -103,7 +107,7 @@ return <>
         <h2 className="catalog__title">More like this</h2>
 
         <div className="catalog__films-list">
-          <MovieList movies={movies}/>
+          <MovieList movies={similarMovies.slice(0,4)}/>
         </div>
       </section>
 
