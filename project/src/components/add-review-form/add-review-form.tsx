@@ -7,7 +7,7 @@ import { addMovieReview } from "../../store/api-actions";
 import { addReview } from "../../types/add-review";
 
 const enum CommentLength {
-  Min = 50,
+  Min = 5,
   Max = 400,
 }
 
@@ -27,7 +27,7 @@ function AddReviewForm ({ movieId } : AddReviewFormProps):JSX.Element {
   const [commentData, setCommentData] = useState('');
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
 
-  const sendStatus = useAppSelector(({ ACTION }) => ACTION.isLoading);
+  const {isLoading} = useAppSelector(({ ACTION }) => ACTION);
 
 
   const hanldeMouseClick = (id: number) => {
@@ -69,7 +69,7 @@ function AddReviewForm ({ movieId } : AddReviewFormProps):JSX.Element {
 
 
   return(
-    <form onSubmit={handleSubmit} action="#" className={` ${sendStatus ? 'add-review__form' : 'add-review__form-disabled'}`}>
+    <form onSubmit={handleSubmit} action="#" className={` ${isLoading ? 'add-review__form' : 'add-review__form-disabled'}`}>
           <div className="rating">
             <div className="rating__stars">
 
@@ -86,7 +86,7 @@ function AddReviewForm ({ movieId } : AddReviewFormProps):JSX.Element {
           <div className="add-review__text">
             <textarea onChange={handleCommentAdd} value={commentData} className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text">{commentData}</textarea>
             <div className="add-review__submit">
-              <button disabled={isDisabled|| !sendStatus} className="add-review__btn" type="submit">Post</button>
+              <button disabled={isDisabled|| isLoading} className="add-review__btn" type="submit">Post</button>
             </div>
 
           </div>

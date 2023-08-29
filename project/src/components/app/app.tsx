@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute } from "../../const";
+import { AppRoute, AuthorizationStatus } from "../../const";
 import AddReviewPage from "../../pages/add-review-page/add-review-page";
 import MainPage from "../../pages/main-page/main-page";
 import MoviePage from "../../pages/movie-page/movie-page";
@@ -12,6 +12,7 @@ import PrivateRoute from "../private-route/private-route";
 import { useAppSelector } from "../../hooks";
 import HistoryRouter from "../history-route/history-route";
 import browserHistory from "../browser-history";
+import Spinner from "../spinner/spinner";
 
 
 
@@ -21,6 +22,15 @@ function App(): JSX.Element {
   const { movies } = useAppSelector(({ DATA })=> DATA);
   const { isLoading } = useAppSelector(({ACTION})=> ACTION)
 
+  const isAuthStatusUnknown = (authorizationStatus: string): boolean =>
+  authorizationStatus === AuthorizationStatus.Unknown;
+
+
+  if (isAuthStatusUnknown(authorizationStatus) ) {
+    return (
+      <Spinner loading={isLoading} />
+    );
+  }
 
   return (
   <HelmetProvider>
@@ -48,7 +58,7 @@ function App(): JSX.Element {
         />
         <Route
           path={AppRoute.SelectedMovie}
-          element={<MoviePage isLoading={isLoading}/>}
+          element={<MoviePage isLoading={isLoading} />}
         />
       <Route
           path={AppRoute.NotFound}
