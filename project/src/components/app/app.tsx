@@ -18,7 +18,8 @@ import browserHistory from "../browser-history";
 function App(): JSX.Element {
 
   const { authorizationStatus } = useAppSelector(({ USER })=> USER);
-  const Movies = useAppSelector(({ DATA })=> DATA.movies);
+  const { movies } = useAppSelector(({ DATA })=> DATA);
+  const { isLoading } = useAppSelector(({ACTION})=> ACTION)
 
 
   return (
@@ -27,7 +28,7 @@ function App(): JSX.Element {
       <Routes>
     <Route
           path={AppRoute.Main}
-          element={<MainPage movies={Movies}/>}
+          element={<MainPage movies={movies} isLoading={isLoading}/>}
         />
       <Route
           path={AppRoute.Login}
@@ -40,14 +41,14 @@ function App(): JSX.Element {
       <Route
           path={AppRoute.MyList}
           element={
-            <PrivateRoute authorizationStatus = {authorizationStatus}>
+            <PrivateRoute authorizationStatus = {authorizationStatus} >
               <MyListPage />
             </PrivateRoute>
         }
         />
         <Route
           path={AppRoute.SelectedMovie}
-          element={<MoviePage />}
+          element={<MoviePage isLoading={isLoading}/>}
         />
       <Route
           path={AppRoute.NotFound}
@@ -63,7 +64,7 @@ function App(): JSX.Element {
         />
         <Route
           path={AppRoute.PlayerById}
-          element={<PlayerPage movies={Movies}/>}
+          element={<PlayerPage movies={movies}/>}
         />
       </Routes>
     </HistoryRouter>

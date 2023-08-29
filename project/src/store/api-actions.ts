@@ -25,8 +25,10 @@ export const fetchMoviesAction = createAsyncThunk<void, undefined, {
 }>(
   APIType.DataFetchMovies,
   async (_arg, {dispatch, extra: api}) => {
+    dispatch(changeLoadingStatus(true));
     const {data} = await api.get<Movie[]>(APIRoute.Movies);
     dispatch(loadMovies(data));
+    dispatch(changeLoadingStatus(false));
   },
 );
 
@@ -77,8 +79,10 @@ export const fetchCurrentMovieAction = createAsyncThunk<void, number | null, {
 }>(
   APIType.DataFetchCurrentMovie,
   async (id, {dispatch, extra: api}) => {
+    dispatch(changeLoadingStatus(true));
     const {data} = await api.get<Movie>(`${APIRoute.Movies}/${id}`);
     dispatch(loadCurrentMovie(data));
+    dispatch(changeLoadingStatus(false));
   },
 );
 

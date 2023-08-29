@@ -6,6 +6,7 @@ import Footer from "../../components/footer/footer";
 import Logo from "../../components/logo/logo";
 import MovieList from "../../components/movie-list/movie-list";
 import MoviePageTabs from "../../components/movie-page-tabs/movie-page-tabs";
+import Spinner from "../../components/spinner/spinner";
 import UserBlock from "../../components/user-block/user-block";
 import { AppRoute, AuthorizationStatus } from "../../const";
 import { useAppSelector } from "../../hooks";
@@ -13,10 +14,12 @@ import { store } from "../../store";
 import { fetchCurrentMovieAction, fetchReviewsAction, fetchSimilarMoviesAction } from "../../store/api-actions";
 
 
+type MoviePageProps = {
+  isLoading:boolean,
+}
 
 
-
-function MoviePage(): JSX.Element {
+function MoviePage({isLoading}:MoviePageProps): JSX.Element {
 
 
 
@@ -55,7 +58,12 @@ function MoviePage(): JSX.Element {
 
 
 
-return <>
+return (
+  isLoading
+    ?
+    <Spinner loading={isLoading} />
+    :
+  <>
 <section className="film-card film-card--full">
 
   <Helmet>
@@ -125,6 +133,7 @@ return <>
       <Footer/>
     </div>
   </>
+)
     }
 
     export default MoviePage;
