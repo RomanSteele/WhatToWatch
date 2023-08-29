@@ -20,6 +20,7 @@ function App(): JSX.Element {
   const { authorizationStatus } = useAppSelector(({ USER })=> USER);
   const Movies = useAppSelector(({ DATA })=> DATA.movies);
 
+
   return (
   <HelmetProvider>
     <HistoryRouter history = {browserHistory}>
@@ -30,7 +31,11 @@ function App(): JSX.Element {
         />
       <Route
           path={AppRoute.Login}
-          element= {<SignInPage authorizationStatus={authorizationStatus}/>}
+          element= {
+            <PrivateRoute authorizationStatus = {authorizationStatus}>
+          <SignInPage />
+          </PrivateRoute>
+        }
         />
       <Route
           path={AppRoute.MyList}
@@ -50,7 +55,11 @@ function App(): JSX.Element {
         />
         <Route
           path={AppRoute.AddReview}
-          element={<AddReviewPage />}
+          element={
+          <PrivateRoute authorizationStatus = {authorizationStatus}>
+            <AddReviewPage />
+          </PrivateRoute>
+          }
         />
         <Route
           path={AppRoute.PlayerById}

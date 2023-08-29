@@ -31,6 +31,7 @@ export enum APIType {
   DataFetchReviews = 'data/fetchReviews',
   AddMyListMovie = 'action/addMyListFilm',
   UserCheckAuth = 'user/checkAuth',
+  UserData = 'user/data',
   UserLogin = 'data/fetchMovies',
   UserLogout = 'data/fetchMovies',
   ActionClearError = 'action/clearError'

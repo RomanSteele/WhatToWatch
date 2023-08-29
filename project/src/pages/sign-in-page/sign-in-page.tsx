@@ -3,17 +3,13 @@ import { Helmet } from "react-helmet-async";
 import { Navigate } from "react-router-dom";
 import Footer from "../../components/footer/footer";
 import Logo from "../../components/logo/logo";
-import { AppRoute, AuthorizationStatus } from "../../const";
 import { validateEmail, validatePassword } from "../../helpers";
 import { useAppDispatch } from "../../hooks";
 import { loginAction } from "../../store/api-actions";
 import { AuthData } from "../../types/auth-data";
 
-type SignInPageProps = {
-  authorizationStatus: string;
-}
 
-function SignInPage({authorizationStatus}:SignInPageProps): JSX.Element {
+function SignInPage(): JSX.Element {
 
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -43,14 +39,7 @@ function SignInPage({authorizationStatus}:SignInPageProps): JSX.Element {
     }
   };
 
-  return (
-
-    authorizationStatus === AuthorizationStatus.Auth ?
-
-    <Navigate to={AppRoute.Main}/>
-
-    :
-
+return(
   <>
 
   <Helmet>

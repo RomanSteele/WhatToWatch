@@ -17,12 +17,7 @@ function AddReviewPage(): JSX.Element {
 
   const selectedMovie = useAppSelector(({DATA})=> DATA.currentMovie)
 
-
-
-
   const {  name, posterImage, previewImage } = selectedMovie;
-
-
 
   useEffect (() => {
     if (params.id) {

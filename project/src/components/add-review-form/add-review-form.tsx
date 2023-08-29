@@ -19,7 +19,6 @@ type AddReviewFormProps = {
   movieId: number,
 }
 
-
 function AddReviewForm ({ movieId } : AddReviewFormProps):JSX.Element {
 
   const navigate = useNavigate();

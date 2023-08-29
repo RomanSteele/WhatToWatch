@@ -1,6 +1,7 @@
 import {store} from '../store/index';
 import { Movie } from './movie';
 import { Review } from './review';
+import { UserLoginData } from './user-data';
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -19,6 +20,7 @@ export type Data = {
 
 export type UserData = {
   authorizationStatus: string,
+  userLoginData: UserLoginData
 };
 
 export type ActionData = {

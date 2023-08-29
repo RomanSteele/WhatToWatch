@@ -11,7 +11,6 @@ function MyListPage(): JSX.Element {
 
   const movies = useAppSelector(({DATA}) => DATA.favoriteMovies)
 
-
   return <>
 
   <Helmet>

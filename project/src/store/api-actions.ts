@@ -6,26 +6,16 @@ import {APIRoute, APIType, AppRoute, AuthorizationStatus, ERROR_TIMEOUT} from '.
 import {saveToken, dropToken} from '../services/token';
 import { Movie } from '../types/movie';
 import { AuthData } from '../types/auth-data';
-import { UserData } from '../types/user-data';
+import { UserData, UserLoginData } from '../types/user-data';
 import {store} from './';
 
-import { requireAuthorization } from './slices/user-data/used-data';
+import { loadUserData, requireAuthorization } from './slices/user-data/used-data';
 import { loadCurrentMovie, loadFavoriteMovies, loadMovies , loadPromoMovie, loadReviews, loadSimilarMovies, setError } from './slices/app-data/app-data';
 import { PushMovieToMyList } from '../types/my-list-movie';
 import { addReview } from '../types/add-review';
 import { Review } from '../types/review';
 import { changeLoadingStatus } from './slices/action-data/action-data';
 
-
-export const clearErrorAction = createAsyncThunk(
-  APIType.ActionClearError,
-  () => {
-    setTimeout(
-      () => store.dispatch(setError(null)),
-      ERROR_TIMEOUT,
-    );
-  },
-);
 
 export const fetchMoviesAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -92,17 +82,20 @@ export const fetchCurrentMovieAction = createAsyncThunk<void, number | null, {
   },
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
+
+export const fetchUserAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
 }>(
-  APIType.UserCheckAuth,
-  async (_arg, {dispatch, extra: api}) => {
+  APIType.UserData,
+  async (_arg, { dispatch, extra: api }) => {
     try {
-      await api.get(APIRoute.Login);
+      const { data } = await api.get<UserLoginData>(APIRoute.Login);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    } catch {
+      dispatch(loadUserData(data));
+      dispatch(fetchFavoriteMoviesAction());
+    } catch (error) {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
   },
@@ -174,3 +167,13 @@ export const addMovieReview = createAsyncThunk<void, addReview, {
     },
 );
 
+
+export const clearErrorAction = createAsyncThunk(
+  APIType.ActionClearError,
+  () => {
+    setTimeout(
+      () => store.dispatch(setError(null)),
+      ERROR_TIMEOUT,
+    );
+  },
+);
