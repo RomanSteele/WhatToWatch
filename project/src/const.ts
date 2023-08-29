@@ -96,3 +96,4 @@ export enum NameSpace {
   Action = 'ACTION',
 }
 
+export const VIDEO_PREVIEW_DELAY = 1000;

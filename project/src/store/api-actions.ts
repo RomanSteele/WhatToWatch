@@ -82,6 +82,22 @@ export const fetchCurrentMovieAction = createAsyncThunk<void, number | null, {
   },
 );
 
+export const checkAuthAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  APIType.UserCheckAuth,
+  async (_arg, {dispatch, extra: api}) => {
+    try {
+      await api.get(APIRoute.Login);
+      console
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    } catch {
+      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    }
+  },
+);
 
 export const fetchUserAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -92,9 +108,9 @@ export const fetchUserAction = createAsyncThunk<void, undefined, {
   async (_arg, { dispatch, extra: api }) => {
     try {
       const { data } = await api.get<UserLoginData>(APIRoute.Login);
-      dispatch(requireAuthorization(AuthorizationStatus.Auth));
       dispatch(loadUserData(data));
       dispatch(fetchFavoriteMoviesAction());
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
     } catch (error) {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
@@ -166,7 +182,6 @@ export const addMovieReview = createAsyncThunk<void, addReview, {
       dispatch(fetchFavoriteMoviesAction());
     },
 );
-
 
 export const clearErrorAction = createAsyncThunk(
   APIType.ActionClearError,

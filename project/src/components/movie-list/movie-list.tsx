@@ -13,7 +13,7 @@ function MovieList({movies}: MovieListProps): JSX.Element {
     <>
       {movies.map((movie)=>
           <article className="small-film-card catalog__films-card" key={movie.scoresCount + movie.id} >
-            <SingleMovieCard movie={movie}/>
+            <SingleMovieCard autoPlay={false} movie={movie}/>
           </article>
         )}
 </>
