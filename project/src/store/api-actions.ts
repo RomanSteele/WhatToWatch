@@ -177,9 +177,9 @@ export const addMovieReview = createAsyncThunk<void, addReview, {
 }>(
   APIType.AddMyListMovie,
   async ({ id, comment, rating }, { dispatch, extra: api }) => {
-      dispatch(changeLoadingStatus(false));
-      await api.post(`${APIRoute.Reviews}/${id}`, { comment, rating });
       dispatch(changeLoadingStatus(true));
+      await api.post(`${APIRoute.Reviews}/${id}`, { comment, rating });
+      dispatch(changeLoadingStatus(false));
     },
 );
 
