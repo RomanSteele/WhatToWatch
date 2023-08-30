@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
-import { AppRoute } from "../../const";
-import { useAppDispatch, useAppSelector } from "../../hooks";
 import { logoutAction } from "../../store/api-actions";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { AppRoute } from "../../const";
 
-function UserBlockSignOut ():JSX.Element {
+
+function UserBlockSignOut () :JSX.Element {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

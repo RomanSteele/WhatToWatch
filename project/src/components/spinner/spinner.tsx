@@ -1,13 +1,11 @@
 import { CSSProperties } from "react";
 import FadeLoader from "react-spinners/FadeLoader";
-import Footer from "../footer/footer";
 
 type SpinnerProps = {
   loading: boolean
 }
 
-
-function Spinner ({loading}: SpinnerProps):JSX.Element {
+function Spinner ({ loading }: SpinnerProps):JSX.Element {
 
 
   const override: CSSProperties = {

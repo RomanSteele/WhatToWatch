@@ -88,7 +88,6 @@ export const TabKeys: MovieTab[] = [
 
 export const GenresStart = 'All genres';
 
-export const ERROR_TIMEOUT = 3000;
 
 export enum NameSpace {
   User = 'USER',
@@ -96,4 +95,18 @@ export enum NameSpace {
   Action = 'ACTION',
 }
 
+export const ERROR_TIMEOUT = 3000;
+
 export const VIDEO_PREVIEW_DELAY = 1000;
+
+export const FILMS_PER_STEP = 8;
+
+export enum CommentLength {
+  Min = 5,
+  Max = 400,
+}
+
+export enum StarsStart {
+  start = 0,
+}
+

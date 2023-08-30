@@ -1,13 +1,13 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { AppRoute, VIDEO_PREVIEW_DELAY } from "../../const";
 import { Movie } from "../../types/movie";
+import { AppRoute, VIDEO_PREVIEW_DELAY } from "../../const";
 
 type SingleMovieCardProps ={
   movie: Movie,
   autoPlay: boolean,
 }
-function SingleMovieCard({movie, autoPlay}: SingleMovieCardProps): JSX.Element {
+function SingleMovieCard({ movie, autoPlay }: SingleMovieCardProps): JSX.Element {
 
   const { id, name, previewImage, previewVideoLink } = movie;
 
@@ -30,7 +30,6 @@ function SingleMovieCard({movie, autoPlay}: SingleMovieCardProps): JSX.Element {
       clearTimeout(timer);
       setTimer(null);
       videoRef.current && videoRef.current.load();
-
     }
   };
 

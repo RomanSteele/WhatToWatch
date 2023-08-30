@@ -5,7 +5,7 @@ import { getToken } from './token';
 
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
-  //[StatusCodes.UNAUTHORIZED]: true,
+  [StatusCodes.UNAUTHORIZED]: true,
   [StatusCodes.NOT_FOUND]: true
 };
 
@@ -14,7 +14,6 @@ const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[resp
 
 const BACKEND_URL = 'https://9.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
-
 
 
 export const createAPI = (): AxiosInstance => {

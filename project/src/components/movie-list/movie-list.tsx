@@ -1,4 +1,3 @@
-
 import { Movie } from "../../types/movie";
 import SingleMovieCard from "../single-movie-card/single-movie-card";
 
@@ -7,7 +6,6 @@ type MovieListProps = {
 }
 
 function MovieList({movies}: MovieListProps): JSX.Element {
-
 
   return(
     <>

@@ -1,20 +1,21 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {AppDispatch, State} from '../types/state';
+import {store} from './';
 import {redirectToRoute} from './action';
-import {APIRoute, APIType, AppRoute, AuthorizationStatus, ERROR_TIMEOUT} from '../const';
 import {saveToken, dropToken} from '../services/token';
+import {APIRoute, APIType, AppRoute, AuthorizationStatus, ERROR_TIMEOUT} from '../const';
+import {AppDispatch, State} from '../types/state';
 import { Movie } from '../types/movie';
 import { AuthData } from '../types/auth-data';
 import { UserData, UserLoginData } from '../types/user-data';
-import {store} from './';
-
-import { loadUserData, requireAuthorization } from './slices/user-data/used-data';
-import { loadCurrentMovie, loadFavoriteMovies, loadMovies , loadPromoMovie, loadReviews, loadSimilarMovies, setError } from './slices/app-data/app-data';
 import { PushMovieToMyList } from '../types/my-list-movie';
 import { addReview } from '../types/add-review';
 import { Review } from '../types/review';
+
 import { changeLoadingStatus } from './slices/action-data/action-data';
+import { loadUserData, requireAuthorization } from './slices/user-data/used-data';
+import { loadCurrentMovie, loadFavoriteMovies, loadMovies , loadPromoMovie, loadReviews, loadSimilarMovies, setError } from './slices/app-data/app-data';
+
 
 
 export const fetchMoviesAction = createAsyncThunk<void, undefined, {

@@ -5,10 +5,10 @@ type MoviePageOverviewProps ={
   movie: Movie
 }
 
-function MoviePageOverview ({movie}:MoviePageOverviewProps): JSX.Element {
+function MoviePageOverview ({ movie }:MoviePageOverviewProps): JSX.Element {
 
 
-  const {rating, scoresCount, description, director, starring} = movie;
+  const { rating, scoresCount, description, director, starring } = movie;
   const ratingDescription = getRatingDescription(rating);
 
 

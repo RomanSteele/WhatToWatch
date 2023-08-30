@@ -1,10 +1,11 @@
+import { Movie } from "../../types/movie";
 import CatalogGenreList from "../../components/catalog-genre-list/catalog-genre-list";
 import Footer from "../../components/footer/footer";
 import Logo from "../../components/logo/logo";
 import PromoMovie from "../../components/promo-movie/promo-movie";
 import UserBlock from "../../components/user-block/user-block";
-import { Movie } from "../../types/movie";
 import Spinner from "../../components/spinner/spinner";
+
 
 type MainPageProps = {
   movies: Movie[],
@@ -13,8 +14,6 @@ type MainPageProps = {
 
 
 function MainPage({movies, isLoading}: MainPageProps): JSX.Element {
-
-
 
   return (
   isLoading

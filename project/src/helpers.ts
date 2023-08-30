@@ -1,3 +1,4 @@
+import { AuthorizationStatus } from "./const";
 
 export function formatTime(minutes: number) {
 
@@ -38,3 +39,6 @@ export const validatePassword = (password: string): boolean => {
   const passwordPattern = /^.*$/;
   return password ? passwordPattern.test(password) : false;
 };
+
+export const isAuthStatusUnknown = (authorizationStatus: string): boolean =>
+  authorizationStatus === AuthorizationStatus.Unknown;

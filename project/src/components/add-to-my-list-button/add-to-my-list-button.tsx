@@ -1,19 +1,19 @@
-import { addMyListMovie } from "../../store/api-actions";
 import { store } from '../../store';
-import { useAppSelector } from "../../hooks";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { addMyListMovie } from "../../store/api-actions";
+import { useAppSelector } from "../../hooks";
 import { Movie } from "../../types/movie";
 import { AppRoute, AuthorizationStatus } from "../../const";
-import { useNavigate } from "react-router-dom";
 
 type AddToMyListButtonProps = {
-filmId: number,
-}
+  filmId: number,
+  };
 
 function AddToMyListButton ({ filmId }: AddToMyListButtonProps): JSX.Element {
 
-  const myListMovies = useAppSelector(({ DATA }) => DATA.favoriteMovies);
-  const authorizationStatus = useAppSelector(({ USER }) => USER.authorizationStatus);
+  const { favoriteMovies } = useAppSelector(({ DATA }) => DATA);
+  const { authorizationStatus } = useAppSelector(({ USER }) => USER);
   const [movieStatus, setMovieStatus] = useState(0);
 
   const navigate = useNavigate();
@@ -25,15 +25,15 @@ function AddToMyListButton ({ filmId }: AddToMyListButtonProps): JSX.Element {
   };
 
   useEffect(()=>{
-    if (!myListMovies) {
+    if (!favoriteMovies) {
       return;
     }
-    if (myListMovies.find((item: Movie) => item.id === filmId)) {
+    if (favoriteMovies.find((item: Movie) => item.id === filmId)) {
       setMovieStatus(1);
     } else {
       setMovieStatus(0);
     }
-  },[filmId, myListMovies])
+  },[filmId, favoriteMovies])
 
   return(
     <button onClick={()=> authorizationStatus === AuthorizationStatus.Auth ? addToMyList(filmId, newMovieStatus) : navigate(AppRoute.Login)}className="btn btn--list film-card__button" type="button">

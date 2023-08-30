@@ -1,13 +1,13 @@
 import {Navigate} from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
 import SignInPage from '../../pages/sign-in-page/sign-in-page';
+import { AppRoute, AuthorizationStatus } from '../../const';
 
 type PrivateRouteProps = {
   authorizationStatus: string;
   children: JSX.Element;
 }
 
-function PrivateRoute(props: PrivateRouteProps): JSX.Element{
+function PrivateRoute( props: PrivateRouteProps ): JSX.Element{
   const {authorizationStatus, children} = props;
 
 

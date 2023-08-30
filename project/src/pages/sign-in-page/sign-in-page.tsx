@@ -1,11 +1,12 @@
 import { FormEvent, useRef } from "react";
 import { Helmet } from "react-helmet-async";
-import Footer from "../../components/footer/footer";
-import Logo from "../../components/logo/logo";
-import { validateEmail, validatePassword } from "../../helpers";
 import { store } from "../../store";
 import { loginAction } from "../../store/api-actions";
 import { AuthData } from "../../types/auth-data";
+import { validateEmail, validatePassword } from "../../helpers";
+import Footer from "../../components/footer/footer";
+import Logo from "../../components/logo/logo";
+
 
 
 function SignInPage(): JSX.Element {

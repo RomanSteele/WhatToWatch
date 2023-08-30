@@ -1,7 +1,7 @@
-import { AuthorizationStatus } from "../../const";
 import { useAppSelector } from "../../hooks";
 import UserBlockSignIn from "./user-block-sign-in";
 import UserBlockSignOut from "./user-block-sign-out";
+import { AuthorizationStatus } from "../../const";
 
 function UserBlock(): JSX.Element {
 
@@ -9,9 +9,9 @@ function UserBlock(): JSX.Element {
 
   return(
     authorizationStatus === AuthorizationStatus.Auth ?
-    <UserBlockSignOut/>
-    :
-    <UserBlockSignIn/>
+      <UserBlockSignOut/>
+      :
+      <UserBlockSignIn/>
   )
 }
 

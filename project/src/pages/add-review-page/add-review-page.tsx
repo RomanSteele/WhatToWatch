@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
+import { useAppSelector } from "../../hooks";
+import { store } from "../../store";
+import { fetchCurrentMovieAction } from "../../store/api-actions";
 import AddReviewForm from "../../components/add-review-form/add-review-form";
 import Breadcrumbs from "../../components/breadcrumbs/breadcrumbs";
 import Logo from "../../components/logo/logo";
 import Userblock from "../../components/user-block/user-block";
-import { useAppSelector } from "../../hooks";
-import { store } from "../../store";
-import { fetchCurrentMovieAction } from "../../store/api-actions";
 
 
 function AddReviewPage(): JSX.Element {
@@ -15,14 +15,13 @@ function AddReviewPage(): JSX.Element {
   const params = useParams();
   const movieId = Number(params.id);
 
-  const selectedMovie = useAppSelector(({DATA})=> DATA.currentMovie)
+  const { currentMovie } = useAppSelector(({DATA})=> DATA)
 
-  const {  name, posterImage, previewImage } = selectedMovie;
+  const {  name, posterImage, previewImage } = currentMovie;
 
   useEffect (() => {
     if (params.id) {
       store.dispatch(fetchCurrentMovieAction(movieId));
-
     }
   }, [params.id]);
 
@@ -44,9 +43,9 @@ function AddReviewPage(): JSX.Element {
         <header className="page-header">
           <Logo/>
 
-          <Breadcrumbs movieName={name} movieId={movieId}/>
+            <Breadcrumbs movieName={name} movieId={movieId}/>
 
-          <Userblock/>
+            <Userblock/>
 
         </header>
 

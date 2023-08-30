@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { GenresStart } from "../../const";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { updateGenre } from "../../store/slices/action-data/action-data";
-import { Movie } from "../../types/movie";
 import MovieList from "../movie-list/movie-list";
-
-const FILMS_PER_STEP = 8;
+import { Movie } from "../../types/movie";
+import { FILMS_PER_STEP, GenresStart } from "../../const";
 
 type CatalogGenreListProps = {
   movies: Movie[]

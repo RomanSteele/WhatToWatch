@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { TabKeys } from "../../const"
-import { Movie } from "../../types/movie";
 import MoviePageDetails from "./movie-page-details";
 import MoviePageOverview from "./movie-page-overview";
 import MoviePageReviews from "./movie-page-reviews";
 import { Review } from "../../types/review";
+import { Movie } from "../../types/movie";
+import { TabKeys } from "../../const"
 
 type MoviePageTabsProps = {
   movie: Movie,
   reviews:Review[],
 };
 
-function MoviePageTabs ({movie, reviews}: MoviePageTabsProps): JSX.Element {
+function MoviePageTabs ({ movie, reviews }: MoviePageTabsProps): JSX.Element {
 
   const [isActive,setIsActive] = useState<number>(1);
 

@@ -1,16 +1,16 @@
 import { useNavigate } from "react-router-dom";
-import { AppRoute } from "../../const";
 import { useAppSelector } from "../../hooks";
 import AddToMyListButton from "../add-to-my-list-button/add-to-my-list-button";
+import { AppRoute } from "../../const";
 
 
 function PromoMovie ():JSX.Element {
 
-  const promoMovie = useAppSelector(({DATA})=>DATA.promoMovie)
+  const { promoMovie } = useAppSelector(({DATA})=>DATA)
 
   const navigate = useNavigate();
 
-  const {name, id, posterImage, genre, released,} = promoMovie;
+  const { name, id, posterImage, genre, released } = promoMovie;
 
   return(
   <div className="film-card__info">

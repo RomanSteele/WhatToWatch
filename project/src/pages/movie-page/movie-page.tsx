@@ -1,6 +1,10 @@
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import {Link, useParams, useNavigate} from 'react-router-dom';
+import { useAppSelector } from "../../hooks";
+import { store } from "../../store";
+import { fetchCurrentMovieAction, fetchReviewsAction, fetchSimilarMoviesAction } from "../../store/api-actions";
+import { AppRoute, AuthorizationStatus } from "../../const";
 import AddToMyListButton from "../../components/add-to-my-list-button/add-to-my-list-button";
 import Footer from "../../components/footer/footer";
 import Logo from "../../components/logo/logo";
@@ -8,10 +12,7 @@ import MovieList from "../../components/movie-list/movie-list";
 import MoviePageTabs from "../../components/movie-page-tabs/movie-page-tabs";
 import Spinner from "../../components/spinner/spinner";
 import UserBlock from "../../components/user-block/user-block";
-import { AppRoute, AuthorizationStatus } from "../../const";
-import { useAppSelector } from "../../hooks";
-import { store } from "../../store";
-import { fetchCurrentMovieAction, fetchReviewsAction, fetchSimilarMoviesAction } from "../../store/api-actions";
+
 
 type MoviePageProps = {
   isLoading:boolean,

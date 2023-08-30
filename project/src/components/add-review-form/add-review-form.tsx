@@ -1,19 +1,11 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppRoute, STARS } from "../../const";
-import { useAppSelector } from "../../hooks";
 import { store } from "../../store";
+import { useAppSelector } from "../../hooks";
 import { addMovieReview } from "../../store/api-actions";
 import { addReview } from "../../types/add-review";
+import { AppRoute, CommentLength, STARS, StarsStart } from "../../const";
 
-const enum CommentLength {
-  Min = 5,
-  Max = 400,
-}
-
-const enum StarsStart {
-  start = 0,
-}
 
 type AddReviewFormProps = {
   movieId: number,
@@ -27,7 +19,7 @@ function AddReviewForm ({ movieId } : AddReviewFormProps):JSX.Element {
   const [commentData, setCommentData] = useState('');
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
 
-  const {isLoading} = useAppSelector(({ ACTION }) => ACTION);
+  const { isLoading } = useAppSelector(({ ACTION }) => ACTION);
 
 
   const hanldeMouseClick = (id: number) => {
@@ -46,7 +38,6 @@ function AddReviewForm ({ movieId } : AddReviewFormProps):JSX.Element {
       store.dispatch(addMovieReview({ id, comment, rating }));
 
     };
-
 
     if ( !isDisabled ) {
       sendOnSubmit(

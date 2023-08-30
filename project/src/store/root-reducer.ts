@@ -1,8 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { NameSpace } from '../const';
 import { data } from './slices/app-data/app-data';
 import { userData } from './slices/user-data/used-data';
 import { actionData } from './slices/action-data/action-data';
+import { NameSpace } from '../const';
 
 
 export const rootReducer = combineReducers({

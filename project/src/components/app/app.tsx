@@ -1,6 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute, AuthorizationStatus } from "../../const";
+import { useAppSelector } from "../../hooks";
+import HistoryRouter from "../history-route/history-route";
+import browserHistory from "../browser-history";
 import AddReviewPage from "../../pages/add-review-page/add-review-page";
 import MainPage from "../../pages/main-page/main-page";
 import MoviePage from "../../pages/movie-page/movie-page";
@@ -9,10 +11,9 @@ import NotFoundPage from "../../pages/not-found-page/not-found-page";
 import PlayerPage from "../../pages/player-page/player-page";
 import SignInPage from "../../pages/sign-in-page/sign-in-page";
 import PrivateRoute from "../private-route/private-route";
-import { useAppSelector } from "../../hooks";
-import HistoryRouter from "../history-route/history-route";
-import browserHistory from "../browser-history";
 import Spinner from "../spinner/spinner";
+import { isAuthStatusUnknown } from "../../helpers";
+import { AppRoute } from "../../const";
 
 
 
@@ -21,9 +22,6 @@ function App(): JSX.Element {
   const { authorizationStatus } = useAppSelector(({ USER })=> USER);
   const { movies } = useAppSelector(({ DATA })=> DATA);
   const { isLoading } = useAppSelector(({ACTION})=> ACTION)
-
-  const isAuthStatusUnknown = (authorizationStatus: string): boolean =>
-  authorizationStatus === AuthorizationStatus.Unknown;
 
 
   if (isAuthStatusUnknown(authorizationStatus) ) {

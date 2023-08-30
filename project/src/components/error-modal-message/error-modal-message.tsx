@@ -9,9 +9,7 @@ function ErrorModalMessage ():JSX.Element | null {
 
   const { error } = useAppSelector(({ DATA })=> DATA);
 
-
   const dispatch = useAppDispatch();
-
 
   return (error)
   ? <div className="error-modal-overlay">

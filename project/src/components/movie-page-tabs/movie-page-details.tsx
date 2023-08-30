@@ -5,9 +5,9 @@ type MoviePageDetailsProps ={
   movie: Movie
 }
 
-function MoviePageDetails ({movie}: MoviePageDetailsProps): JSX.Element {
+function MoviePageDetails ({ movie }: MoviePageDetailsProps): JSX.Element {
 
-  const {director, starring, runTime, genre, released} = movie;
+  const { director, starring, runTime, genre, released } = movie;
   const formatCurrentTime = formatTime(runTime);
 
 

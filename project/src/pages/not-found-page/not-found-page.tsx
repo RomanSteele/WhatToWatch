@@ -3,7 +3,6 @@ import Footer from "../../components/footer/footer";
 import Logo from "../../components/logo/logo";
 
 
-
 function NotFoundPage(): JSX.Element {
 
   return <>

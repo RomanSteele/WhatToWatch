@@ -1,25 +1,25 @@
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
-import { Movie } from "../../types/movie";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
+import { Movie } from "../../types/movie";
 import { PlayerActiveStatus, TimeConvertion } from "../../const";
 
 type PlayerPageProps = {
   movies: Movie[]
 }
 
-function PlayerPage({movies}:PlayerPageProps): JSX.Element {
+function PlayerPage({ movies }:PlayerPageProps): JSX.Element {
 
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [videoTimestamp, setVideoTimestamp] = useState<number>(0);
-  const [togglePosition, setTogglePosition] = useState<string>('');
+  const [ isPlaying, setIsPlaying ] = useState(true);
+  const [ videoTimestamp, setVideoTimestamp ] = useState<number>(0);
+  const [ togglePosition, setTogglePosition ] = useState<string>('');
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const params = useParams();
   const id = Number(params.id);
 
-  const movie = movies.find((item) => item.id === id) as Movie;
+  const movie = movies.find(( item ) => item.id === id) as Movie;
 
   const {name, videoLink, posterImage} = movie;
 
