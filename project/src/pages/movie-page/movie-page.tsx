@@ -13,21 +13,17 @@ import { useAppSelector } from "../../hooks";
 import { store } from "../../store";
 import { fetchCurrentMovieAction, fetchReviewsAction, fetchSimilarMoviesAction } from "../../store/api-actions";
 
-
 type MoviePageProps = {
   isLoading:boolean,
 }
 
-
-function MoviePage({isLoading}:MoviePageProps): JSX.Element {
-
-
+function MoviePage({ isLoading }:MoviePageProps): JSX.Element {
 
   const navigate = useNavigate();
   const params = useParams();
   const movieId = Number(params.id);
 
-  const selectedMovie = useAppSelector(({DATA})=> DATA.currentMovie)
+  const { currentMovie }= useAppSelector(({DATA})=> DATA)
   const { reviews, similarMovies } = useAppSelector(({ DATA })=> DATA);
   const { authorizationStatus } = useAppSelector(({ USER }) => USER);
 
@@ -35,15 +31,7 @@ function MoviePage({isLoading}:MoviePageProps): JSX.Element {
   const similarMoviesToRender = similarMovies.slice(0,4);
 
 
-  const { id, name, posterImage, genre, released, backgroundImage } = selectedMovie;
-
-  useEffect(() => {
-    if (!selectedMovie) {
-      navigate(AppRoute.NotFound);
-      return;
-    }
-    window.scrollTo(0, 0);
-  }, [movieId, navigate]);
+  const { id, name, posterImage, genre, released, backgroundImage } = currentMovie;
 
 
 
@@ -52,10 +40,9 @@ function MoviePage({isLoading}:MoviePageProps): JSX.Element {
       store.dispatch(fetchCurrentMovieAction(movieId));
       store.dispatch(fetchReviewsAction(movieId));
       store.dispatch(fetchSimilarMoviesAction(movieId));
+      window.scrollTo(0, 0);
     }
   }, [params.id]);
-
-
 
 
 return (
@@ -115,7 +102,7 @@ return (
             <img src={posterImage} alt={name} width="218" height="327" />
           </div>
 
-          <MoviePageTabs movie={selectedMovie} reviews={reviews} />
+          <MoviePageTabs movie={currentMovie} reviews={reviews} />
 
         </div>
       </div>

@@ -10,7 +10,6 @@ type PrivateRouteProps = {
 function PrivateRoute(props: PrivateRouteProps): JSX.Element{
   const {authorizationStatus, children} = props;
 
-console.log(authorizationStatus)
 
   if (children.type !== SignInPage){
 

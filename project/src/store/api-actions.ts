@@ -79,11 +79,16 @@ export const fetchCurrentMovieAction = createAsyncThunk<void, number | null, {
 }>(
   APIType.DataFetchCurrentMovie,
   async (id, {dispatch, extra: api}) => {
+    try{
     dispatch(changeLoadingStatus(true));
     const {data} = await api.get<Movie>(`${APIRoute.Movies}/${id}`);
-    dispatch(changeLoadingStatus(false));
     dispatch(loadCurrentMovie(data));
-  },
+    dispatch(changeLoadingStatus(false));
+  }
+  catch (error){
+    dispatch(changeLoadingStatus(false));
+  }
+}
 );
 
 
@@ -96,9 +101,9 @@ export const fetchUserAction = createAsyncThunk<void, undefined, {
   async (_arg, { dispatch, extra: api }) => {
     try {
       const { data } = await api.get<UserLoginData>(APIRoute.Login);
-      dispatch(requireAuthorization(AuthorizationStatus.Auth));
       dispatch(loadUserData(data));
       dispatch(fetchFavoriteMoviesAction());
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
     } catch (error) {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
@@ -113,11 +118,17 @@ export const loginAction = createAsyncThunk<void, AuthData, {
 }>(
   APIType.UserLogin,
   async ({ email, password}, {dispatch, extra: api}) => {
-    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
-    saveToken(token);
+    try{
+    const { data } = await api.post<UserData>(APIRoute.Login, {email, password});
+    saveToken(data.token);
+    dispatch(loadUserData(data));
+      dispatch(fetchFavoriteMoviesAction());
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    dispatch(redirectToRoute(AppRoute.MyList))
-  },
+    dispatch(redirectToRoute(AppRoute.Main))
+  } catch (error) {
+    dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    }
+  }
 );
 
 export const logoutAction = createAsyncThunk<void, undefined, {
@@ -165,10 +176,9 @@ export const addMovieReview = createAsyncThunk<void, addReview, {
 }>(
   APIType.AddMyListMovie,
   async ({ id, comment, rating }, { dispatch, extra: api }) => {
-    dispatch(changeLoadingStatus(false));
+      dispatch(changeLoadingStatus(false));
       await api.post(`${APIRoute.Reviews}/${id}`, { comment, rating });
       dispatch(changeLoadingStatus(true));
-      dispatch(fetchFavoriteMoviesAction());
     },
 );
 
