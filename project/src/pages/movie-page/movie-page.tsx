@@ -24,7 +24,7 @@ function MoviePage({ isLoading }:MoviePageProps): JSX.Element {
   const params = useParams();
   const movieId = Number(params.id);
 
-  const { currentMovie }= useAppSelector(({DATA})=> DATA)
+  const { currentMovie, movies }= useAppSelector(({DATA})=> DATA)
   const { reviews, similarMovies } = useAppSelector(({ DATA })=> DATA);
   const { authorizationStatus } = useAppSelector(({ USER }) => USER);
 
@@ -45,6 +45,11 @@ function MoviePage({ isLoading }:MoviePageProps): JSX.Element {
     }
   }, [params.id]);
 
+  useEffect (() => {
+    if (movieId > movies.length) {
+  navigate(AppRoute.NotFound)
+    }
+  }, [params.id]);
 
 return (
   isLoading

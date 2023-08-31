@@ -6,14 +6,14 @@ import { store } from './store';
 import App from './components/app/app';
 import ErrorModalMessage from './components/error-modal-message/error-modal-message';
 
+async function initializeApp() {
+  await store.dispatch(fetchMoviesAction());
+  await store.dispatch(fetchUserAction());
+  await store.dispatch(fetchPromoMovieAction());
 
-store.dispatch(fetchUserAction());
-store.dispatch(fetchMoviesAction());
-store.dispatch(fetchPromoMovieAction());
-
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
-);
+  const root = ReactDOM.createRoot(
+    document.getElementById('root') as HTMLElement,
+  )
 
 root.render(
   <>
@@ -23,4 +23,6 @@ root.render(
     </Provider>
   </>,
 );
+}
 
+initializeApp();
