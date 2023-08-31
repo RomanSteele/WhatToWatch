@@ -7,13 +7,13 @@ import {APIRoute, APIType, AppRoute, AuthorizationStatus, ERROR_TIMEOUT} from '.
 import {AppDispatch, State} from '../types/state';
 import { Movie } from '../types/movie';
 import { AuthData } from '../types/auth-data';
-import { UserData, UserLoginData } from '../types/user-data';
+import {  UserLoginData } from '../types/user-data';
 import { PushMovieToMyList } from '../types/my-list-movie';
 import { addReview } from '../types/add-review';
 import { Review } from '../types/review';
 
 import { changeLoadingStatus } from './slices/action-data/action-data';
-import { loadUserData, requireAuthorization } from './slices/user-data/used-data';
+import { loadUserData, requireAuthorization } from './slices/user-data/user-data';
 import { loadCurrentMovie, loadFavoriteMovies, loadMovies , loadPromoMovie, loadReviews, loadSimilarMovies, setError } from './slices/app-data/app-data';
 
 
@@ -120,7 +120,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   APIType.UserLogin,
   async ({ email, password}, {dispatch, extra: api}) => {
     try{
-    const { data } = await api.post<UserData>(APIRoute.Login, {email, password});
+    const { data } = await api.post<UserLoginData>(APIRoute.Login, {email, password});
     saveToken(data.token);
     dispatch(loadUserData(data));
       dispatch(fetchFavoriteMoviesAction());

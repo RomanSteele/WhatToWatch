@@ -1,6 +1,8 @@
-import { system, name, internet , datatype } from 'faker';
+import { system, name, internet , datatype, date } from 'faker';
 import { AuthorizationStatus } from '../const';
 import { Movie } from '../types/movie';
+import { Review } from '../types/review';
+import { UserLoginData } from '../types/user-data';
 
 
 export const fakeRating: Array<number> = [2, 4, 7, 9, 10, -1, 11];
@@ -11,7 +13,19 @@ export const fakePassword: Array<string> = ['ousekf2346477658', ''];
 
 export const fakeAuthStatus: Array<string> = [AuthorizationStatus.Unknown, AuthorizationStatus.Auth, AuthorizationStatus.NoAuth];
 
-export const makeFakeMovieObject = (): Movie => ({
+export const fakeGenre = 'Drama';
+
+export const fakeError = ['Error!', null ];
+
+export const fakeUserData: UserLoginData = {
+  avatarUrl: internet.avatar(),
+  email: datatype.string(12),
+  id: 0,
+  name: name.title(),
+  token: datatype.string(20),
+};
+
+export const fakeMovie:Movie =({
   name: name.title(),
   posterImage: system.filePath(),
   previewImage: internet.avatar(),
@@ -34,3 +48,20 @@ export const makeFakeMovieObject = (): Movie => ({
   videoLink: system.filePath(),
   previewVideoLink: system.filePath(),
 });
+
+const moviesArrayTemplate = [0, 1, 2, 3, 4, 5, 6, 7];
+export const fakeMoviesArray = moviesArrayTemplate.map(()=> fakeMovie)
+
+export const fakeReview: Review ={
+  comment: datatype.string(60),
+  date: "2023-07-24T07:05:34.295Z",
+  id:  datatype.number({ min: 0, max: 10 }),
+  rating:  datatype.number({ min: 0, max: 10 }),
+  user: {
+  id:  datatype.number({ min: 0, max: 10 }),
+  name: datatype.string(60),
+  }};
+
+  const reviewsArrayTemplate = [0, 1, 2, 3, 4, 5, 6, 7];
+  export const fakeReviewsArray = reviewsArrayTemplate.map(()=> fakeReview)
+

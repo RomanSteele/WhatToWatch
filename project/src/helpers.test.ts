@@ -1,9 +1,10 @@
 import { formatTime, getRatingDescription, validateEmail, validatePassword,isAuthStatusUnknown } from './helpers';
-import { makeFakeMovieObject, fakeRating, fakeEmail, fakePassword, fakeAuthStatus } from './utils/mocks';
+import { fakeMovie, fakeRating, fakeEmail, fakePassword, fakeAuthStatus } from './utils/mocks';
 
-const mockMovieObject = makeFakeMovieObject();
+const mockMovieObject = fakeMovie;
 
 describe('Function: formatTime', () => {
+
   it('should correctly format time in hours and minutes', () => {
     const runTime = mockMovieObject.runTime;
     expect(formatTime(runTime))
@@ -12,7 +13,9 @@ describe('Function: formatTime', () => {
 });
 
     describe('Function: getRatingDescription',() => {
+
       const rating = fakeRating
+
   it('should return string with rating', () => {
     expect(getRatingDescription(rating[0])).toBe('Bad');
     expect(getRatingDescription(rating[1])).toBe('Normal');

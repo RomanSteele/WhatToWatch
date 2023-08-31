@@ -1,6 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { data } from './slices/app-data/app-data';
-import { userData } from './slices/user-data/used-data';
+import { userData } from './slices/user-data/user-data';
 import { actionData } from './slices/action-data/action-data';
 import { NameSpace } from '../const';
 
