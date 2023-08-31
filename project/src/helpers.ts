@@ -31,7 +31,7 @@ export function getRatingDescription(rating: number): string {
 }
 
 export const validateEmail = (email: string): boolean => {
-  const emailPattern = /\S+@\S+\.\S+/;
+  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   return email ? emailPattern.test(email) : false;
 };
 
