@@ -1,8 +1,8 @@
 
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { fetchMoviesAction, fetchPromoMovieAction, fetchUserAction } from './store/api-actions';
 import { store } from './store';
+import { fetchMoviesAction, fetchPromoMovieAction, fetchUserAction } from './store/api-actions';
 import App from './components/app/app';
 import ErrorModalMessage from './components/error-modal-message/error-modal-message';
 

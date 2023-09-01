@@ -1,5 +1,6 @@
 import { system, name, internet , datatype, date } from 'faker';
 import { AuthorizationStatus } from '../const';
+import { AuthData } from '../types/auth-data';
 import { Movie } from '../types/movie';
 import { Review } from '../types/review';
 import { UserLoginData } from '../types/user-data';
@@ -16,6 +17,15 @@ export const fakeAuthStatus: Array<string> = [AuthorizationStatus.Unknown, Autho
 export const fakeGenre = 'Drama';
 
 export const fakeError = ['Error!', null ];
+
+export const fakeToken = 'se123orjklsfnwgv45h'
+
+export const fakeDeleteFromFavoritesMovie:({id: number, status: number}) = {id: 1, status: 0}
+
+export const fakeId: number =  datatype.number({ min: 1 });
+
+export const fakeUserReview = { id: datatype.number({ min: 1 }), comment: datatype.string(20) , rating: datatype.number({ min: 1 }) };
+
 
 export const fakeUserData: UserLoginData = {
   avatarUrl: internet.avatar(),
@@ -65,3 +75,13 @@ export const fakeReview: Review ={
   const reviewsArrayTemplate = [0, 1, 2, 3, 4, 5, 6, 7];
   export const fakeReviewsArray = reviewsArrayTemplate.map(()=> fakeReview)
 
+
+export const fakeLoginData: AuthData = {email:'aaaaa@aaaaa.com', password:datatype.string(1)}
+
+export const fakeLoginServerAnswer: UserLoginData = {
+  avatarUrl: internet.avatar(),
+  email: 'aaaaa@aaaaa.com',
+  id: 3,
+  name: datatype.string(8),
+  token: datatype.string(8),
+};

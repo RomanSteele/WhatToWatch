@@ -103,7 +103,7 @@ export const fetchUserAction = createAsyncThunk<void, undefined, {
     try {
       const { data } = await api.get<UserLoginData>(APIRoute.Login);
       dispatch(loadUserData(data));
-      dispatch(fetchFavoriteMoviesAction());
+        dispatch(fetchFavoriteMoviesAction());
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
     } catch (error) {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
@@ -120,7 +120,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   APIType.UserLogin,
   async ({ email, password}, {dispatch, extra: api}) => {
     try{
-    const { data } = await api.post<UserLoginData>(APIRoute.Login, {email, password});
+    const { data } = await api.post(APIRoute.Login, {email, password});
     saveToken(data.token);
     dispatch(loadUserData(data));
       dispatch(fetchFavoriteMoviesAction());

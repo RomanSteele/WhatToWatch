@@ -7,6 +7,7 @@ export enum AppRoute {
   Player = '/player',
   PlayerById = '/player/:id',
   MyList = '/favorites',
+  AddToMyList = '/favorites/:id/:status',
   AddReview = '/movie/:id/review',
   Movie = '/movie',
   SelectedMovie = '/movie/:id',
@@ -32,8 +33,8 @@ export enum APIType {
   AddMyListMovie = 'action/addMyListFilm',
   UserCheckAuth = 'user/checkAuth',
   UserData = 'user/data',
-  UserLogin = 'data/fetchMovies',
-  UserLogout = 'data/fetchMovies',
+  UserLogin = 'user/login',
+  UserLogout = 'user/logout',
   ActionClearError = 'action/clearError'
 }
 
