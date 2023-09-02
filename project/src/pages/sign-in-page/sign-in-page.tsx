@@ -83,11 +83,11 @@ return(
 
           <div className="sign-in__fields">
             <div className={`sign-in__field ${!isEmailValid ? 'sign-in__field--error' : ''}`}>
-              <input ref={emailRef} className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" />
+              <input ref={emailRef} className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" data-testid="user-email" />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
             <div className={`sign-in__field ${!isPasswordValid ? 'sign-in__field--error' : ''}`}>
-              <input ref={passwordRef} className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" />
+              <input ref={passwordRef} className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" data-testid="user-password" />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>
           </div>

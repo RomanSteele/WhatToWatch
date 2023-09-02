@@ -75,7 +75,7 @@ function AddReviewForm ({ movieId } : AddReviewFormProps):JSX.Element {
           </div>
 
           <div className="add-review__text">
-            <textarea onChange={handleCommentAdd} value={commentData} className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text">{commentData}</textarea>
+            <textarea onChange={handleCommentAdd} value={commentData} data-testid="review-text" className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text">{commentData}</textarea>
             <div className="add-review__submit">
               <button disabled={isDisabled|| isLoading} className="add-review__btn" type="submit">Post</button>
             </div>

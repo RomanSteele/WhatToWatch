@@ -32,7 +32,7 @@ function MyListPage(): JSX.Element {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          {favoriteMovies.length > 0 ?
+          {favoriteMovies?.length > 0 ?
             <MovieList movies={favoriteMovies}/>
               :
               <>

@@ -7,10 +7,10 @@ import { Movie } from "../../types/movie";
 import { AppRoute, AuthorizationStatus } from "../../const";
 
 type AddToMyListButtonProps = {
-  filmId: number,
+  movieId: number,
   };
 
-function AddToMyListButton ({ filmId }: AddToMyListButtonProps): JSX.Element {
+function AddToMyListButton ({ movieId }: AddToMyListButtonProps): JSX.Element {
 
   const { favoriteMovies } = useAppSelector(({ DATA }) => DATA);
   const { authorizationStatus } = useAppSelector(({ USER }) => USER);
@@ -28,17 +28,17 @@ function AddToMyListButton ({ filmId }: AddToMyListButtonProps): JSX.Element {
     if (!favoriteMovies) {
       return;
     }
-    if (favoriteMovies.find((item: Movie) => item.id === filmId)) {
+    if (favoriteMovies.find((item: Movie) => item.id === movieId)) {
       setMovieStatus(1);
     } else {
       setMovieStatus(0);
     }
-  },[filmId, favoriteMovies])
+  },[movieId, favoriteMovies])
 
   return(
-    <button onClick={()=> authorizationStatus === AuthorizationStatus.Auth ? addToMyList(filmId, newMovieStatus) : navigate(AppRoute.Login)}className="btn btn--list film-card__button" type="button">
+    <button onClick={()=> authorizationStatus === AuthorizationStatus.Auth ? addToMyList(movieId, newMovieStatus) : navigate(AppRoute.Login)}className="btn btn--list film-card__button" type="button">
       <svg viewBox="0 0 19 20" width="19" height="20">
-      {authorizationStatus === AuthorizationStatus.Auth && movieStatus ? <use xlinkHref="#in-list"></use> : <use xlinkHref="#add"></use>}
+      {authorizationStatus === AuthorizationStatus.Auth && movieStatus ? <use xlinkHref="#in-list" data-testid="in-list"></use> : <use xlinkHref="#add" data-testid="not-in-list"></use>}
       </svg>
         <span>My list</span>
     </button>

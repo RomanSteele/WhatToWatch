@@ -1,8 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { HelmetProvider } from 'react-helmet-async';
 import { useAppSelector } from "../../hooks";
-import HistoryRouter from "../history-route/history-route";
-import browserHistory from "../browser-history";
 import AddReviewPage from "../../pages/add-review-page/add-review-page";
 import MainPage from "../../pages/main-page/main-page";
 import MoviePage from "../../pages/movie-page/movie-page";
@@ -31,8 +28,6 @@ function App(): JSX.Element {
   }
 
   return (
-  <HelmetProvider>
-    <HistoryRouter history = {browserHistory}>
       <Routes>
     <Route
           path={AppRoute.Main}
@@ -75,8 +70,6 @@ function App(): JSX.Element {
           element={<PlayerPage movies={movies}/>}
         />
       </Routes>
-    </HistoryRouter>
-  </HelmetProvider>
   )
 }
 

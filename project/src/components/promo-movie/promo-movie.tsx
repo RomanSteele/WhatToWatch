@@ -32,7 +32,7 @@ function PromoMovie ():JSX.Element {
       </svg>
       <span>Play</span>
     </button>
-    <AddToMyListButton filmId={id}/>
+    <AddToMyListButton movieId={id}/>
     </div>
    </div>
    </div>

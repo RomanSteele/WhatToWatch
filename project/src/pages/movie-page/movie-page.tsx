@@ -95,7 +95,7 @@ return (
                 </svg>
                 <span>Play</span>
               </button>
-              <AddToMyListButton filmId={id}/>
+              <AddToMyListButton movieId={id}/>
               {authorizationStatus === AuthorizationStatus.Auth ? <Link className="btn film-card__button"to={`/movie/${id}/review`}>Add review</Link>: ''}
             </div>
           </div>
