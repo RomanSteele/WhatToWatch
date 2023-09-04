@@ -17,7 +17,7 @@ function AddReviewPage(): JSX.Element {
 
   const { currentMovie } = useAppSelector(({DATA})=> DATA)
 
-  const {  name, posterImage, previewImage } = currentMovie;
+  const {  name, posterImage, backgroundImage } = currentMovie;
 
   useEffect (() => {
     if (params.id) {
@@ -35,7 +35,7 @@ function AddReviewPage(): JSX.Element {
 
       <div className="film-card__header">
          <div className="film-card__bg">
-          <img src={previewImage} alt={name} />
+          <img src={backgroundImage} alt={name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
