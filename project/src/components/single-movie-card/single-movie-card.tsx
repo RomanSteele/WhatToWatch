@@ -35,8 +35,8 @@ function SingleMovieCard({ movie, autoPlay }: SingleMovieCardProps): JSX.Element
 
   return(
     <>
-    <div className="small-film-card__image" onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave}>
-    <video muted ref={videoRef} src={previewVideoLink} poster={previewImage} width="100%" height="100%" autoPlay={autoPlay} onLoadedData={() => {setIsLoading(false);}}></video>
+    <div className="small-film-card__image" onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave} >
+    <video muted ref={videoRef} src={previewVideoLink} poster={previewImage} width="100%" height="100%" autoPlay={autoPlay} onLoadedData={() => {setIsLoading(false);}} data-testid='video-element'></video>
     </div>
     <h3 className="small-film-card__title">
       <Link className="small-film-card__link" to={AppRoute.Movie + `/${id}`}>{name}</Link>

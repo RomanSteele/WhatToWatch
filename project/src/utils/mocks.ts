@@ -1,4 +1,4 @@
-import { system, name, internet , datatype, date } from 'faker';
+import { system, name, internet , datatype } from 'faker';
 import { AuthorizationStatus } from '../const';
 import { AuthData } from '../types/auth-data';
 import { Movie } from '../types/movie';
@@ -51,7 +51,7 @@ export const fakeMovie:Movie =({
     name.title(),
   ],
   runTime: 150,
-  genre: datatype.string(10),
+  genre: 'MovieGenre',
   released: datatype.number({ min: 1900, max: 2023 }),
   id: datatype.number({ min: 1 }),
   isFavorite: datatype.boolean(),
@@ -63,13 +63,13 @@ const moviesArrayTemplate = [0, 1, 2, 3, 4, 5, 6, 7];
 export const fakeMoviesArray = moviesArrayTemplate.map(()=> fakeMovie)
 
 export const fakeReview: Review ={
-  comment: datatype.string(60),
+  comment: 'fake review string',
   date: "2023-07-24T07:05:34.295Z",
   id:  datatype.number({ min: 0, max: 10 }),
   rating:  datatype.number({ min: 0, max: 10 }),
   user: {
   id:  datatype.number({ min: 0, max: 10 }),
-  name: datatype.string(60),
+  name: 'Jack Jones',
   }};
 
   const reviewsArrayTemplate = [0, 1, 2, 3, 4, 5, 6, 7];
