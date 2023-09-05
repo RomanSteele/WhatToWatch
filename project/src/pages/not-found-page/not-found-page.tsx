@@ -1,9 +1,11 @@
 import { Helmet } from "react-helmet-async";
 import Footer from "../../components/footer/footer";
 import Logo from "../../components/logo/logo";
+import UserBlock from "../../components/user-block/user-block";
 
 
 function NotFoundPage(): JSX.Element {
+
 
   return <>
 
@@ -16,7 +18,8 @@ function NotFoundPage(): JSX.Element {
 
         <Logo/>
 
-        <h1 className="page-title user-page__title">Sign in</h1>
+        <UserBlock/>
+
       </header>
 
   <h1 style={{textAlign: "center",}}>NOT FOUND!</h1>
