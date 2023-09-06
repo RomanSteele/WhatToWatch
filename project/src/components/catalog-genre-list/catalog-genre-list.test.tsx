@@ -9,20 +9,11 @@ import { fakeMovie } from '../../utils/mocks';
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
+const mockMovie = fakeMovie;
 
 const store = mockStore({
   ACTION: {genre: fakeMovie.genre},
 });
-
-const fakeAddReviewForm = (
-  <Provider store={store}>
-    <HistoryRouter history={history}>
-      <HelmetProvider>
-        <CatalogGenreList movies={[fakeMovie]} />
-      </HelmetProvider>
-    </HistoryRouter>
-  </Provider>
-);
 
 
 
@@ -31,11 +22,18 @@ describe('Component: CatalogGenreList', () => {
 
   it('should render genres list and movie list', async () => {
 
-    render(fakeAddReviewForm);
+    render(
+    <Provider store={store}>
+      <HistoryRouter history={history}>
+        <HelmetProvider>
+          <CatalogGenreList movies={[mockMovie]} />
+        </HelmetProvider>
+      </HistoryRouter>
+    </Provider>);
 
     expect(screen.getByText(/Catalog/i)).toBeInTheDocument();
     expect(screen.getByText(/All genres/i)).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${fakeMovie.genre}`, 'i'))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${mockMovie.genre}`, 'i'))).toBeInTheDocument();
 
   });
 });

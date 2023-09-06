@@ -12,6 +12,17 @@ import { loadUserData, requireAuthorization } from './slices/user-data/user-data
 import { loadCurrentMovie, loadFavoriteMovies, loadMovies, loadPromoMovie, loadReviews, loadSimilarMovies, setError } from './slices/app-data/app-data';
 import { changeLoadingStatus } from './slices/action-data/action-data';
 
+
+const fakemockDeleteFromFavoritesMovie = fakeDeleteFromFavoritesMovie;
+const mockId = fakeId;
+const mockLoginData = fakeLoginData;
+const mockMovie = fakeMovie;
+const mockMoviesArray = fakeMoviesArray;
+const mockReviewsArray = [fakeReview, fakeReview, fakeReview];
+const mockUserData = fakeUserData;
+const mockUserReview = fakeUserReview;
+
+
 describe('Async actions', () => {
 
   const mockAPI = new MockAdapter(api);
@@ -24,21 +35,10 @@ describe('Async actions', () => {
     >(middlewares);
 
 
-    const fakeUserDataResponse = fakeUserData;
-    const fakeUser = fakeLoginData;
-    const fakeDeleteFromFavorites = fakeDeleteFromFavoritesMovie;
-    const fakeMovieId = fakeId;
-    const fakeMovies = fakeMoviesArray;
-    const fakeReviewsArray = [fakeReview, fakeReview, fakeReview];
-    const fakeUserReviewItem = fakeUserReview;
-    const fakeMovieItem = fakeMovie;
-
-
-
     it('should dispatch changeLoadingStatus and loadMovies when GET /films with a 200 status', async () => {
       mockAPI
         .onGet(APIRoute.Movies)
-        .reply(200, fakeMovies);
+        .reply(200, mockMoviesArray);
 
       const store = mockStore();
       Storage.prototype.setItem = jest.fn();
@@ -61,7 +61,7 @@ describe('Async actions', () => {
     it('should dispatch loadFavoriteMovies when GET /favorite with a 200 status', async () => {
       mockAPI
         .onGet(APIRoute.FavotireMovies)
-        .reply(200, fakeMovies);
+        .reply(200, mockMoviesArray);
 
       const store = mockStore();
       Storage.prototype.setItem = jest.fn();
@@ -82,7 +82,7 @@ describe('Async actions', () => {
     it('should dispatch loadPromoMovie when GET /promo with a 200 status', async () => {
       mockAPI
         .onGet(APIRoute.PromoMovie)
-        .reply(200, fakeMovieItem);
+        .reply(200, mockMovie);
 
       const store = mockStore();
       Storage.prototype.setItem = jest.fn();
@@ -102,13 +102,13 @@ describe('Async actions', () => {
 
     it('should dispatch loadSimilarMovies when GET /movie/:id/similar with a 200 status' , async () => {
       mockAPI
-        .onGet(`${APIRoute.Movies}/${fakeMovieItem.id}/similar`)
-        .reply(200, fakeMovies);
+        .onGet(`${APIRoute.Movies}/${mockMovie.id}/similar`)
+        .reply(200, mockMoviesArray);
 
       const store = mockStore();
       Storage.prototype.setItem = jest.fn();
 
-      await store.dispatch(fetchSimilarMoviesAction(fakeMovieItem.id));
+      await store.dispatch(fetchSimilarMoviesAction(mockMovie.id));
 
       const actions = store.getActions().map(({type}) => type);
 
@@ -126,13 +126,13 @@ describe('fetchCurrentMovieAction', () => {
 
     it('should dispatch changeLoadingStatus, loadCurrentMovie when GET /movie/:id with a 200 status', async () => {
       mockAPI
-        .onGet(`${APIRoute.Movies}/${fakeMovieItem.id}`)
-        .reply(200, fakeMovieItem);
+        .onGet(`${APIRoute.Movies}/${mockMovie.id}`)
+        .reply(200, mockMovie);
 
       const store = mockStore();
       Storage.prototype.setItem = jest.fn();
 
-      await store.dispatch(fetchCurrentMovieAction(fakeMovieItem.id));
+      await store.dispatch(fetchCurrentMovieAction(mockMovie.id));
 
       const actions = store.getActions().map(({type}) => type);
 
@@ -149,13 +149,13 @@ describe('fetchCurrentMovieAction', () => {
 
     it('should dispatch changeLoadingStatus twice when GET /movie/:id with a 404 status', async () => {
       mockAPI
-        .onGet(`${APIRoute.Movies}/${fakeMovieItem.id}`)
+        .onGet(`${APIRoute.Movies}/${mockMovie.id}`)
         .reply(404, []);
 
       const store = mockStore();
       Storage.prototype.setItem = jest.fn();
 
-      await store.dispatch(fetchCurrentMovieAction(fakeMovieItem.id));
+      await store.dispatch(fetchCurrentMovieAction(mockMovie.id));
 
       const actions = store.getActions().map(({type}) => type);
 
@@ -177,7 +177,7 @@ describe('fetchUserAction', () => {
     it('should dispatch loadUserData, fetchFavoriteMoviesAction, requireAuthorization and RedirectToRoute when GET /login with a 200 status', async () => {
       mockAPI
         .onGet(APIRoute.Login)
-        .reply(200, fakeUserDataResponse);
+        .reply(200, mockUserData);
 
       const store = mockStore();
       Storage.prototype.setItem = jest.fn();
@@ -226,12 +226,12 @@ describe('loginAction', () => {
     it('should dispatch fetchMoviesAction, loadUserData, fetchFavoriteMoviesAction, requireAuthorization and RedirectToRoute when POST /login with a 200 status', async () => {
       mockAPI
         .onPost(APIRoute.Login)
-        .reply(200, fakeUserDataResponse);
+        .reply(200, mockUserData);
 
       const store = mockStore();
       Storage.prototype.setItem = jest.fn();
 
-      await store.dispatch(loginAction(fakeUser));
+      await store.dispatch(loginAction(mockLoginData));
 
       const actions = store.getActions().map(({type}) => type);
 
@@ -244,7 +244,7 @@ describe('loginAction', () => {
         loginAction.fulfilled.type
       ]);
       expect(Storage.prototype.setItem).toBeCalledTimes(1);
-      expect(Storage.prototype.setItem).toBeCalledWith('what-to-watch-token', fakeUserDataResponse.token);
+      expect(Storage.prototype.setItem).toBeCalledWith('what-to-watch-token', mockUserData.token);
     });
 
 
@@ -256,7 +256,7 @@ describe('loginAction', () => {
       const store = mockStore();
       Storage.prototype.setItem = jest.fn();
 
-      await store.dispatch(loginAction(fakeUser));
+      await store.dispatch(loginAction(mockLoginData));
 
       const actions = store.getActions().map(({type}) => type);
 
@@ -295,14 +295,14 @@ describe('loginAction', () => {
 
     it('should dispatch fetchFavoriteMoviesAction when POST /favorite/:id/:status with a 200 status', async () => {
       mockAPI
-        .onPost(`${APIRoute.FavotireMovies}/${fakeDeleteFromFavorites.id}/${fakeDeleteFromFavorites.status}`)
+        .onPost(`${APIRoute.FavotireMovies}/${fakemockDeleteFromFavoritesMovie.id}/${fakemockDeleteFromFavoritesMovie.status}`)
         .reply(200, []);
 
       const store = mockStore();
 
       Storage.prototype.setItem = jest.fn();
 
-      await store.dispatch(addMyListMovie(fakeDeleteFromFavorites));
+      await store.dispatch(addMyListMovie(fakemockDeleteFromFavoritesMovie));
 
       const actions = store.getActions().map(({type}) => type);
 
@@ -317,13 +317,13 @@ describe('loginAction', () => {
 
     it('should dispatch reviews array with loadReviews when POST /comments/id with a 200 status', async () => {
       mockAPI
-        .onGet(`${APIRoute.Reviews}/${fakeMovieId}`)
-        .reply(200, fakeReviewsArray);
+        .onGet(`${APIRoute.Reviews}/${mockId}`)
+        .reply(200, mockReviewsArray);
 
       const store = mockStore();
       Storage.prototype.setItem = jest.fn();
 
-      await store.dispatch(fetchReviewsAction(fakeMovieId));
+      await store.dispatch(fetchReviewsAction(mockId));
 
       const actions = store.getActions().map(({type}) => type);
 
@@ -338,13 +338,13 @@ describe('loginAction', () => {
 
     it('should dispatch changeLoadingStatus twice when POST /reviews/id with a 200 status', async () => {
       mockAPI
-        .onPost(`${APIRoute.Reviews}/${fakeUserReviewItem.id}`)
+        .onPost(`${APIRoute.Reviews}/${mockUserReview.id}`)
         .reply(200, []);
 
       const store = mockStore();
       Storage.prototype.setItem = jest.fn();
 
-      await store.dispatch(addMovieReview(fakeUserReviewItem));
+      await store.dispatch(addMovieReview(mockUserReview));
 
       const actions = store.getActions().map(({type}) => type);
 

@@ -59,9 +59,6 @@ export const fakeMovie:Movie =({
   previewVideoLink: system.filePath(),
 });
 
-const moviesArrayTemplate = [0, 1, 2, 3, 4, 5, 6, 7];
-export const fakeMoviesArray = moviesArrayTemplate.map(()=> fakeMovie)
-
 export const fakeReview: Review ={
   comment: 'fake review string',
   date: "2023-07-24T07:05:34.295Z",
@@ -87,7 +84,7 @@ export const fakeLoginServerAnswer: UserLoginData = {
 };
 
 
-export const array = [{
+export const fakeMoviesArray = [{
   name: "Gangs of new york",
     posterImage: "https://9.react.pages.academy/static/film/poster/Gangs_of_New_York_Poster.jpg",
     previewImage: "https://9.react.pages.academy/static/film/preview/gangs_of_new_york.jpg",

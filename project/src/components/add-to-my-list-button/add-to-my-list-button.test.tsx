@@ -15,19 +15,17 @@ const store = mockStore({
   DATA: {favoriteMovies: fakeMoviesArray},
 });
 
-
-
+const mockId= fakeId;
 
 describe('Component: AddToMyListButton', () => {
 
-
-  it('should render button', async () => {
+  it('should render add button', async () => {
 
     render(
     <Provider store={store}>
       <HistoryRouter history={history}>
         <HelmetProvider>
-          <AddToMyListButton movieId={fakeId} />
+          <AddToMyListButton movieId={mockId} />
         </HelmetProvider>
       </HistoryRouter>
     </Provider>
@@ -36,10 +34,7 @@ describe('Component: AddToMyListButton', () => {
     const elementsByTestId = screen.getByTestId(/not-in-list/i);
 
     expect(elementsByTestId).toBeInTheDocument();
-
-
     expect(screen.getByText(/My list/i)).toBeInTheDocument();
   });
-
 
 });

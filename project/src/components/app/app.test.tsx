@@ -5,28 +5,30 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import HistoryRouter from '../history-route/history-route';
 import {AuthorizationStatus, AppRoute, TimeConvertion} from '../../const';
 import App from './app';
-import { fakeMovie, fakeUserData } from '../../utils/mocks';
+import { fakeMoviesArray, fakeMovie, fakeUserData } from '../../utils/mocks';
 import { HelmetProvider } from 'react-helmet-async';
 import userEvent from '@testing-library/user-event';
 
 const mockStore = configureMockStore();
 
+const mockMovie = fakeMovie;
+const mockMoviesArray = fakeMoviesArray;
 
 const store = mockStore({
   USER: {authorizationStatus: AuthorizationStatus.Auth, userLoginData: fakeUserData, },
-  DATA: {movies: [fakeMovie], promoMovie: fakeMovie, favoriteMovies: [fakeMovie], currentMovie: fakeMovie , similarMovies: [fakeMovie]},
+  DATA: {movies: mockMoviesArray, promoMovie: mockMovie, favoriteMovies: mockMoviesArray, currentMovie: mockMovie , similarMovies: mockMoviesArray},
   ACTION: {isLoading: false},
 });
 
 const storeNoAuth = mockStore({
   USER: {authorizationStatus: AuthorizationStatus.NoAuth, userLoginData: fakeUserData},
-  DATA: {movies: [fakeMovie], promoMovie: fakeMovie},
+  DATA: {movies: mockMoviesArray, promoMovie: mockMovie},
   ACTION: {isLoading: false},
 });
 
 const history = createMemoryHistory();
 
-const fakeApp = (
+const testApp = (
   <Provider store={store}>
     <HelmetProvider>
       <HistoryRouter history={history}>
@@ -43,7 +45,7 @@ describe('Application Routing', () => {
   it('should render "MainPage" when user navigate to "/"', () => {
     history.push(AppRoute.Main);
 
-    render(fakeApp);
+    render(testApp);
 
     expect(screen.getByText(new RegExp(`${fakeMovie.name}`, 'i'))).toBeInTheDocument();
     expect(screen.getByText(/My list/i)).toBeInTheDocument();
@@ -78,10 +80,10 @@ describe('Application Routing', () => {
   it('should render "MyListPage" when user navigate to "/favorites"', async () => {
     history.push(AppRoute.MyList);
 
-    render(fakeApp);
+    render(testApp);
 
     expect(screen.getByText(/My List/i)).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${fakeMovie.name}`, 'i')));
+    expect(screen.getByText(new RegExp(`${mockMoviesArray[3].name}`, 'i')));
   });
 
 
@@ -90,7 +92,7 @@ describe('Application Routing', () => {
     window.scrollTo = jest.fn();
 
 
-    render(fakeApp);
+    render(testApp);
 
 
     const elementWithText = screen.getAllByText(new RegExp(`${fakeMovie.rating}`, 'i'));
@@ -104,7 +106,7 @@ describe('Application Routing', () => {
     history.push(`/${AppRoute.NotFound}`);
 
 
-    render(fakeApp);
+    render(testApp);
 
     expect(screen.getByText(/NOT FOUND!/i)).toBeInTheDocument();
 
@@ -115,7 +117,7 @@ describe('Application Routing', () => {
     history.push(`${AppRoute.Movie}/${fakeMovie.id}/review`);
 
 
-    render(fakeApp);
+    render(testApp);
 
     expect(screen.getByText(/Post/i)).toBeInTheDocument();
     expect(screen.getByText(new RegExp(`${fakeMovie.name}`, 'i'))).toBeInTheDocument();
@@ -124,18 +126,18 @@ describe('Application Routing', () => {
 
 
   it('should render "Player" when user navigate to "/player/:id" ', async () => {
-    history.push(`${AppRoute.Player}/${fakeMovie.id}`);
+    history.push(`${AppRoute.Player}/${mockMoviesArray[0].id}`);
     HTMLMediaElement.prototype.play  = jest.fn();
 
 
-    render(fakeApp);
+    render(testApp);
 
     const getLeftTime = (runTime: number) =>
     new Date(((runTime * TimeConvertion.SecondsInMinute)) * TimeConvertion.MilisecondsInSecond).toUTCString().split(/ /)[TimeConvertion.Limit];
 
 
     expect(screen.getByText(/Exit/i)).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${getLeftTime(fakeMovie.runTime)}`, 'i'))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${getLeftTime(mockMoviesArray[0].runTime)}`, 'i'))).toBeInTheDocument();
     expect(HTMLMediaElement.prototype.play).toBeCalledTimes(1);
   });
 

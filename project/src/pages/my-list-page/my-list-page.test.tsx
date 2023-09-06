@@ -12,7 +12,8 @@ import { AuthorizationStatus } from '../../const';
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
-
+const mockMovie = fakeMovie;
+const mockUserData = fakeUserData;
 
 
 describe('Component: MyListPage', () => {
@@ -21,8 +22,8 @@ describe('Component: MyListPage', () => {
   it('should render MyListPage logged in', async () => {
 
     const store = mockStore({
-      DATA: {favoriteMovies:[fakeMovie]},
-      USER: {authorizationStatus: AuthorizationStatus.Auth, userLoginData: fakeUserData},
+      DATA: {favoriteMovies:[mockMovie]},
+      USER: {authorizationStatus: AuthorizationStatus.Auth, userLoginData: mockUserData},
     });
 
     render(
@@ -35,19 +36,18 @@ describe('Component: MyListPage', () => {
     </Provider>
     );
 
-
-
-    expect(screen.getByText(new RegExp(`${fakeMovie.name}`,'i'))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${mockMovie.name}`,'i'))).toBeInTheDocument();
 
     expect(screen.getByText(/My list/i)).toBeInTheDocument();
     expect(screen.getByText(/Sign out/i)).toBeInTheDocument();
   });
 
+
   it('should render MyListPage logged in with no favorite movies', async () => {
 
     const store = mockStore({
       DATA: {favoriteMovies:[]},
-      USER: {authorizationStatus: AuthorizationStatus.Auth, userLoginData: fakeUserData},
+      USER: {authorizationStatus: AuthorizationStatus.Auth, userLoginData: mockUserData},
     });
 
     render(

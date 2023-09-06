@@ -2,6 +2,11 @@ import { formatTime, getRatingDescription, validateEmail, validatePassword,isAut
 import { fakeMovie, fakeRating, fakeEmail, fakePassword, fakeAuthStatus } from './utils/mocks';
 
 const mockMovieObject = fakeMovie;
+const mockRating = fakeRating;
+const mockEmail = fakeEmail;
+const mockPassword = fakePassword;
+const mockAuthStatus = fakeAuthStatus;
+
 
 describe('Function: formatTime', () => {
 
@@ -14,7 +19,7 @@ describe('Function: formatTime', () => {
 
     describe('Function: getRatingDescription',() => {
 
-      const rating = fakeRating
+      const rating = mockRating
 
   it('should return string with rating', () => {
     expect(getRatingDescription(rating[0])).toBe('Bad');
@@ -32,17 +37,17 @@ describe('Function: formatTime', () => {
 
 describe('Function: validateEmail', () => {
   it('should return true if email is validated', () => {
-    const email = fakeEmail;
+    const email = mockEmail;
     expect(validateEmail(email[0])).toBe(true);
   });
   it('should return false if email is not validated', () => {
-    const email = fakeEmail;
+    const email = mockEmail;
     expect(validateEmail(email[1])).toBe(false);
   });
 });
 
 describe('Function: validatePassword', () => {
-  const password = fakePassword;
+  const password = mockPassword;
 
   it('should return true if password is validated', () => {
     expect(validatePassword(password[0])).toBe(true);
@@ -54,7 +59,7 @@ describe('Function: validatePassword', () => {
 });
 
 describe('Function: isAuthStatusUnknown', () => {
-  const authStatus = fakeAuthStatus;
+  const authStatus = mockAuthStatus;
 
   it('should return true if authorizationStatus is unknown', () => {
     expect(isAuthStatusUnknown(authStatus[0])).toBe(true);

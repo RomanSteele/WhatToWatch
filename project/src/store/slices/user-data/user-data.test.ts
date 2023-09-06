@@ -6,6 +6,8 @@ import { UserData } from '../../../types/state';
 import { fakeUserData } from '../../../utils/mocks';
 
 
+const mockUserData = fakeUserData;
+
 describe('Reducer: userData', () => {
 
 const initialState: UserData = {
@@ -40,7 +42,7 @@ const initialState: UserData = {
 
   it('should change userLoginData ', () => {
     const state = initialState;
-    expect(userData.reducer(state, loadUserData(fakeUserData)))
-      .toEqual({ ...initialState, userLoginData: fakeUserData });
+    expect(userData.reducer(state, loadUserData(mockUserData)))
+      .toEqual({ ...initialState, userLoginData: mockUserData });
   })
 })

@@ -10,8 +10,7 @@ import { Provider } from 'react-redux';
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
-
-
+const mockUserData = fakeUserData;
 
 describe('Component: NotFoundPage', () => {
 
@@ -19,7 +18,7 @@ describe('Component: NotFoundPage', () => {
   it('should render NotFoundPage logged out', async () => {
 
     const store = mockStore({
-      USER: {authorizationStatus: AuthorizationStatus.NoAuth, userLoginData: fakeUserData},
+      USER: {authorizationStatus: AuthorizationStatus.NoAuth, userLoginData: mockUserData},
     });
 
 
@@ -42,7 +41,7 @@ describe('Component: NotFoundPage', () => {
   it('should render NotFoundPage logged in', async () => {
 
     const store = mockStore({
-      USER: {authorizationStatus: AuthorizationStatus.Auth, userLoginData: fakeUserData},
+      USER: {authorizationStatus: AuthorizationStatus.Auth, userLoginData: mockUserData},
     });
 
 

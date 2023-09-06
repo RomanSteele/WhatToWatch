@@ -4,13 +4,15 @@ import { actionData } from './action-data';
 import { updateGenre , changeLoadingStatus } from './action-data';
 import { fakeGenre } from '../../../utils/mocks';
 
-
-describe('Reducer: actionData', () => {
-
 const initialState = {
   genre: GenresStart,
   isLoading: true,
 };
+
+const mockGenre = fakeGenre;
+
+describe('Reducer: actionData', () => {
+
 
 const loadingStatusChange = false;
 
@@ -27,8 +29,8 @@ const loadingStatusChange = false;
 
   it('should change genre to Drama', () => {
     const state = initialState;
-    expect(actionData.reducer(state, updateGenre(fakeGenre)))
-      .toEqual({ ...initialState, genre: fakeGenre });
+    expect(actionData.reducer(state, updateGenre(mockGenre)))
+      .toEqual({ ...initialState, genre: mockGenre });
   });
 
 

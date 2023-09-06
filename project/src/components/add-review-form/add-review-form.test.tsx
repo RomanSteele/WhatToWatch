@@ -15,27 +15,22 @@ const store = mockStore({
   ACTION: {isLoading: false},
 });
 
-const fakeAddReviewForm = (
-  <Provider store={store}>
-    <HistoryRouter history={history}>
-      <HelmetProvider>
-        <AddReviewForm movieId={fakeId} />
-      </HelmetProvider>
-    </HistoryRouter>
-  </Provider>
-);
-
-
+const mockId= fakeId;
 
 describe('Component: AddReviewForm', () => {
 
-
   it('should render review and post button', async () => {
 
-    render(fakeAddReviewForm);
+    render(
+    <Provider store={store}>
+      <HistoryRouter history={history}>
+        <HelmetProvider>
+          <AddReviewForm movieId={mockId} />
+        </HelmetProvider>
+      </HistoryRouter>
+    </Provider>);
 
     await userEvent.type(screen.getByTestId('review-text'), 'review');
-
     const elementWithText = screen.getAllByText(/Rating/i);
 
     expect(elementWithText).not.toBeNull();

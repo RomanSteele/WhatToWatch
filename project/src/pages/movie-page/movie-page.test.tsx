@@ -5,7 +5,7 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Provider} from 'react-redux';
 import HistoryRouter from '../../components/history-route/history-route';
 import MoviePage from './movie-page';
-import { array, fakeMovie, fakeReview, fakeUserData } from '../../utils/mocks';
+import { fakeMoviesArray, fakeMovie, fakeReview, fakeUserData } from '../../utils/mocks';
 import { AuthorizationStatus } from '../../const';
 
 
@@ -21,7 +21,7 @@ describe('Component: MoviePage', () => {
   it('should render MoviePage logged in', async () => {
 
     const store = mockStore({
-      DATA: {currentMovie: fakeMovie, movies: array, reviews:[fakeReview], similarMovies:[array[1]]},
+      DATA: {currentMovie: fakeMovie, movies: fakeMoviesArray, reviews:[fakeReview], similarMovies:[fakeMoviesArray[1]]},
       USER: {authorizationStatus: AuthorizationStatus.Auth, userLoginData: fakeUserData},
     });
 

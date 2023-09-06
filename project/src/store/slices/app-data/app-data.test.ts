@@ -4,6 +4,11 @@ import { data } from './app-data';
 import { loadMovies, setError, loadFavoriteMovies, loadPromoMovie, loadReviews, loadSimilarMovies, loadCurrentMovie } from './app-data';
 import { fakeMoviesArray, fakeReviewsArray, fakeMovie, fakeError } from '../../../utils/mocks';
 
+const mockMoviesArray = fakeMoviesArray;
+const mockReviewsArray = fakeReviewsArray;
+const mockMovie = fakeMovie;
+const mockError = fakeError;
+
 
 describe('Reducer: appData', () => {
 
@@ -60,42 +65,42 @@ const initialState: Data = {
   });
 
   it('should change movies in initialState ', () => {
-    expect(data.reducer(initialState, loadMovies(fakeMoviesArray)))
-      .toEqual({ ...initialState, movies: fakeMoviesArray });
+    expect(data.reducer(initialState, loadMovies(mockMoviesArray)))
+      .toEqual({ ...initialState, movies: mockMoviesArray });
   })
 
   it('should change favoriteMovies in initialState ', () => {
-    expect(data.reducer(initialState, loadFavoriteMovies(fakeMoviesArray)))
-      .toEqual({ ...initialState, favoriteMovies: fakeMoviesArray });
+    expect(data.reducer(initialState, loadFavoriteMovies(mockMoviesArray)))
+      .toEqual({ ...initialState, favoriteMovies: mockMoviesArray });
   })
 
   it('should change similarMovies in initialState ', () => {
-    expect(data.reducer(initialState, loadSimilarMovies(fakeMoviesArray)))
-      .toEqual({ ...initialState, similarMovies: fakeMoviesArray });
+    expect(data.reducer(initialState, loadSimilarMovies(mockMoviesArray)))
+      .toEqual({ ...initialState, similarMovies: mockMoviesArray });
   })
 
   it('should change reviews in initialState ', () => {
-    expect(data.reducer(initialState, loadReviews(fakeReviewsArray)))
-      .toEqual({ ...initialState, reviews: fakeReviewsArray });
+    expect(data.reducer(initialState, loadReviews(mockReviewsArray)))
+      .toEqual({ ...initialState, reviews: mockReviewsArray });
   })
 
   it('should change promoMovie in initialState ', () => {
-    expect(data.reducer(initialState, loadPromoMovie(fakeMovie)))
-      .toEqual({ ...initialState, promoMovie: fakeMovie });
+    expect(data.reducer(initialState, loadPromoMovie(mockMovie)))
+      .toEqual({ ...initialState, promoMovie: mockMovie });
   })
 
   it('should change currentMovie in initialState ', () => {
-    expect(data.reducer(initialState, loadCurrentMovie(fakeMovie)))
-      .toEqual({ ...initialState, currentMovie: fakeMovie });
+    expect(data.reducer(initialState, loadCurrentMovie(mockMovie)))
+      .toEqual({ ...initialState, currentMovie: mockMovie });
   })
 
   it('should change error in initialState ', () => {
-    expect(data.reducer(initialState, setError(fakeError[0])))
-      .toEqual({ ...initialState, error: fakeError[0] });
+    expect(data.reducer(initialState, setError(mockError[0])))
+      .toEqual({ ...initialState, error: mockError[0] });
   })
 
   it('should not change error in initialState ', () => {
-    expect(data.reducer(initialState, setError(fakeError[1])))
+    expect(data.reducer(initialState, setError(mockError[1])))
       .toEqual({ ...initialState });
   })
 })

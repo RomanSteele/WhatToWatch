@@ -12,26 +12,23 @@ const history = createMemoryHistory();
 
 const store = mockStore();
 
-const fakeBreadcrumbs = (
-  <Provider store={store}>
-    <HistoryRouter history={history}>
-      <HelmetProvider>
-        <Breadcrumbs movieName={fakeMovie.name} movieId={fakeMovie.id} />
-      </HelmetProvider>
-    </HistoryRouter>
-  </Provider>
-);
-
+const mockMovie = fakeMovie;
 
 
 describe('Component: Breadcrumbs', () => {
 
-
   it('should render add review and movie name', async () => {
 
-    render(fakeBreadcrumbs);
+    render(
+    <Provider store={store}>
+      <HistoryRouter history={history}>
+        <HelmetProvider>
+          <Breadcrumbs movieName={mockMovie.name} movieId={mockMovie.id} />
+        </HelmetProvider>
+      </HistoryRouter>
+    </Provider>);
 
     expect(screen.getByText(/Add review/i)).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${fakeMovie.name}`, 'i'))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${mockMovie.name}`, 'i'))).toBeInTheDocument();
   });
 });
