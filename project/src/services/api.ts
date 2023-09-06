@@ -1,5 +1,6 @@
 import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
 import { StatusCodes } from 'http-status-codes';
+import { AppRoute } from '../const';
 import { processErrorHandle } from './process-error-handle';
 import { getToken } from './token';
 
@@ -14,6 +15,7 @@ const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[resp
 
 const BACKEND_URL = 'https://9.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
+
 
 
 export const createAPI = (): AxiosInstance => {
@@ -37,9 +39,21 @@ export const createAPI = (): AxiosInstance => {
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError<{error: string}>) => {
-      if (error.response && shouldDisplayError(error.response)) {
+
+
+      if (error.response && shouldDisplayError(error.response) && error.response.status != StatusCodes.UNAUTHORIZED) {
+
         processErrorHandle(error.response.data.error);
+
       }
+
+
+
+      if (error.response && shouldDisplayError(error.response) && error.response.status === StatusCodes.UNAUTHORIZED ) {
+
+        window.location.pathname === AppRoute.MyList  ? processErrorHandle(error.response.data.error) : '';
+      }
+
 
       throw error;
     }

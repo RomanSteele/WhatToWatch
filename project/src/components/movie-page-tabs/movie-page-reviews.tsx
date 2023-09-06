@@ -23,6 +23,12 @@ function MoviePageReviews({ reviews }: MoviePageReviewsProps): JSX.Element {
   ));
 
   return (
+    reviews.length<1
+    ?
+    <div className="film-card__reviews film-card__row">
+      <h2 style={{color:"#150101"}}>No reviews yet!</h2>
+      </div>
+    :
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
         {firstHalfRendered}
