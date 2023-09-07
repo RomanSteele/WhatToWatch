@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import PlayerPage from './player-page';
 import { fakeMoviesArray } from '../../utils/mocks';
 import { HelmetProvider } from 'react-helmet-async';
 import { createMemoryHistory } from 'history';
