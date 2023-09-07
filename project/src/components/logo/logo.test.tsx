@@ -8,23 +8,17 @@ import Logo from './logo';
 const history = createMemoryHistory();
 
 
-const fakeFooter = (
-    <HistoryRouter history={history}>
-      <HelmetProvider>
-        <Logo />
-      </HelmetProvider>
-    </HistoryRouter>
-
-);
-
-
-
 describe('Component: Footer', () => {
 
 
   it('should render footer', async () => {
 
-    render(fakeFooter);
+    render(
+    <HistoryRouter history={history}>
+      <HelmetProvider>
+        <Logo />
+      </HelmetProvider>
+    </HistoryRouter>);
 
     expect(screen.getByText(/T/i)).toBeInTheDocument();
   });

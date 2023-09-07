@@ -92,7 +92,7 @@ return(
             </div>
           </div>
           <div className="sign-in__submit">
-            <button className="sign-in__btn" type="submit">Sign in</button>
+            <button className="sign-in__btn" type="submit" data-testid="test-button">Sign in</button>
           </div>
         </form>
       </div>

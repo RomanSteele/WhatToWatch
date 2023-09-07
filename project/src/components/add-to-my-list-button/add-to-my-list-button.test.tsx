@@ -10,16 +10,21 @@ import { fakeId, fakeMoviesArray } from '../../utils/mocks';
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
 
-const store = mockStore({
-  USER: {authorizationStatus: true},
-  DATA: {favoriteMovies: fakeMoviesArray},
-});
-
 const mockId= fakeId;
+const mockMoviesArray = fakeMoviesArray;
+
+
 
 describe('Component: AddToMyListButton', () => {
 
-  it('should render add button', async () => {
+  it('should render add button not in list', async () => {
+
+    const store = mockStore({
+      USER: {authorizationStatus: true},
+      DATA: {favoriteMovies: mockMoviesArray},
+    });
+
+
 
     render(
     <Provider store={store}>
@@ -35,6 +40,28 @@ describe('Component: AddToMyListButton', () => {
 
     expect(elementsByTestId).toBeInTheDocument();
     expect(screen.getByText(/My list/i)).toBeInTheDocument();
+  });
+
+  it('should render add button in list', async () => {
+
+    const store = mockStore({
+      USER: {authorizationStatus: true},
+      DATA: {favoriteMovies: mockMoviesArray},
+    });
+
+    render(
+    <Provider store={store}>
+      <HistoryRouter history={history}>
+        <HelmetProvider>
+          <AddToMyListButton movieId={mockMoviesArray[0].id} />
+        </HelmetProvider>
+      </HistoryRouter>
+    </Provider>
+    );
+
+    const elementsByTestId = screen.getByTestId(/in-list/i);
+
+    expect(elementsByTestId).toBeInTheDocument();
   });
 
 });

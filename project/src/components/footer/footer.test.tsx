@@ -8,23 +8,17 @@ import Footer from './footer';
 const history = createMemoryHistory();
 
 
-const fakeFooter = (
-    <HistoryRouter history={history}>
-      <HelmetProvider>
-        <Footer />
-      </HelmetProvider>
-    </HistoryRouter>
-
-);
-
-
-
 describe('Component: Footer', () => {
 
 
   it('should render footer', async () => {
 
-    render(fakeFooter);
+    render(
+    <HistoryRouter history={history}>
+      <HelmetProvider>
+        <Footer />
+      </HelmetProvider>
+    </HistoryRouter>);
 
     expect(screen.getByText(/2019 What to watch Ltd./i)).toBeInTheDocument();
   });

@@ -8,11 +8,12 @@ import UserBlock from './user-block';
 import { fakeUserData } from '../../utils/mocks';
 import { AuthorizationStatus } from '../../const';
 
+const mockUserData = fakeUserData;
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
 
 const store = mockStore({
-  USER: {authorizationStatus: AuthorizationStatus.Auth, userLoginData: fakeUserData},
+  USER: {authorizationStatus: AuthorizationStatus.Auth, userLoginData: mockUserData},
 });
 
 const store1 = mockStore({

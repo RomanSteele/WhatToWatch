@@ -11,9 +11,12 @@ import { VIDEO_PREVIEW_DELAY } from '../../const';
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
 
+const mockMovie = fakeMovie;
+const mockMovieArray = fakeMoviesArray;
+
 const store = mockStore({
   USER: {authorizationStatus: true},
-  DATA: {favoriteMovies: fakeMoviesArray},
+  DATA: {favoriteMovies: mockMovieArray},
 });
 
 
@@ -23,7 +26,7 @@ describe('Component: SingleMovieCard', () => {
     <Provider store={store}>
       <HistoryRouter history={history}>
         <HelmetProvider>
-          <SingleMovieCard  movie={fakeMovie} autoPlay={true}  />
+          <SingleMovieCard  movie={mockMovie} autoPlay={true}  />
         </HelmetProvider>
       </HistoryRouter>
     </Provider>);
@@ -32,7 +35,7 @@ it('should render single card', async () => {
 
   render (fakeSingleMovieCard);
 
-  expect(screen.getByText(new RegExp(`${fakeMovie.name}`,'i'))).toBeInTheDocument();
+  expect(screen.getByText(new RegExp(`${mockMovie.name}`,'i'))).toBeInTheDocument();
 });
 
   it('should render single card and start playing video', async () => {

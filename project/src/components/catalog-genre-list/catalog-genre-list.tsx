@@ -12,6 +12,8 @@ type CatalogGenreListProps = {
 
 function CatalogGenreList ({movies}: CatalogGenreListProps):JSX.Element  {
 
+
+
   const dispatch = useAppDispatch();
 
   const [genres, setGenres] = useState<string[]>([]);

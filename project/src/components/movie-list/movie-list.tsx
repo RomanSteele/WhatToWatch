@@ -8,6 +8,10 @@ type MovieListProps = {
 function MovieList({movies}: MovieListProps): JSX.Element {
 
   return(
+    movies.length<1
+    ?
+    <h2> No movies yet! </h2>
+    :
     <>
       {movies.map((movie)=>
           <article className="small-film-card catalog__films-card" key={movie.scoresCount + movie.id} >

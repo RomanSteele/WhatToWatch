@@ -27,7 +27,7 @@ function MoviePageTabs ({ movie, reviews }: MoviePageTabsProps): JSX.Element {
       <ul className="film-nav__list">
         {
           TabKeys.map((tab)=>
-          <li key = {tab.title} className={`film-nav__item ${tab.id === isActive ? 'film-nav__item--active' : ''}`} onClick={ () => handleTabClick(tab.id)}>
+          <li key = {tab.title} className={`film-nav__item ${tab.id === isActive ? 'film-nav__item--active' : ''}`} onClick={ () => handleTabClick(tab.id)} data-testid={`${tab.title}-test`}>
           <Link to={''} className="film-nav__link">{tab.title}</Link>
         </li>
         )
@@ -45,4 +45,4 @@ function MoviePageTabs ({ movie, reviews }: MoviePageTabsProps): JSX.Element {
 
 }
 
-export default MoviePageTabs
+export default MoviePageTabs;

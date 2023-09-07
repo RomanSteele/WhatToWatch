@@ -12,19 +12,20 @@ import userEvent from '@testing-library/user-event';
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
-
+const mockMovie = fakeMovie;
+const mockReview = fakeReview;
+const mockUserData = fakeUserData;
 
 
 describe('Component: AddReviewPage', () => {
 
+  const store = mockStore({
+    DATA: {currentMovie: mockMovie},
+    USER: {authorizationStatus: AuthorizationStatus.Auth, userLoginData: mockUserData},
+    ACTION: {isLoading: false},
+  });
 
-  it('should render AddReviewPage with entered comment', async () => {
-
-    const store = mockStore({
-      DATA: {currentMovie: fakeMovie},
-      USER: {authorizationStatus: AuthorizationStatus.Auth, userLoginData: fakeUserData},
-      ACTION: {isLoading: false},
-    });
+  it('should render AddReviewPage ', async () => {
 
     render(
     <Provider store={store}>
@@ -36,11 +37,35 @@ describe('Component: AddReviewPage', () => {
     </Provider>
     );
 
-    await userEvent.type(screen.getByTestId('review-text'), fakeReview.comment);
+
+    const elementWithText = screen.getAllByText(/Rating/i);
+    const elementWithPlaceholderText = screen.getAllByPlaceholderText(/Review text/i);
+
+    expect(elementWithText).not.toBeNull();
+    expect(elementWithPlaceholderText).not.toBeNull();
+
+    expect(screen.getByText(/Add review/i)).toBeInTheDocument();
+    expect(screen.getByText(/Sign out/i)).toBeInTheDocument();
+    expect(screen.getByText(/Post/i)).toBeInTheDocument();
+  });
+
+  it('should render AddReviewPage with entered comment', async () => {
+
+    render(
+    <Provider store={store}>
+      <HistoryRouter history={history}>
+        <HelmetProvider>
+          <AddReviewPage  />
+        </HelmetProvider>
+      </HistoryRouter>
+    </Provider>
+    );
+
+    await userEvent.type(screen.getByTestId('review-text'), mockReview.comment);
 
     const elementWithText = screen.getAllByText(/Rating/i);
 
-    expect(screen.getByDisplayValue(new RegExp(`${fakeReview.comment}`,'i'))).toBeInTheDocument();
+    expect(screen.getByDisplayValue(new RegExp(`${mockReview.comment}`,'i'))).toBeInTheDocument();
 
     expect(elementWithText).not.toBeNull();
 

@@ -10,9 +10,10 @@ import { AuthorizationStatus } from '../../const';
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
+const mockMovie = fakeMovie;
 
 const store = mockStore({
-  DATA: {promoMovie: fakeMovie},
+  DATA: {promoMovie: mockMovie},
   USER: {authorizationStatus: AuthorizationStatus.Auth}
 });
 
@@ -35,9 +36,9 @@ describe('Component: PromoMovie', () => {
 
     render(fakePromoMovieComponent);
 
-    expect(screen.getByText(new RegExp(`${fakeMovie.name}`,'i'))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${fakeMovie.genre}`,'i'))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${fakeMovie.released}`,'i'))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${mockMovie.name}`,'i'))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${mockMovie.genre}`,'i'))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${mockMovie.released}`,'i'))).toBeInTheDocument();
     expect(screen.getByText(/Play/i)).toBeInTheDocument();
 
   });

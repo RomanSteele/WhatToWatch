@@ -6,13 +6,14 @@ import HistoryRouter from '../../components/history-route/history-route';
 import SingleReview from './single-review';
 import { fakeReview } from '../../utils/mocks';
 
+const mockReview = fakeReview;
 
 const history = createMemoryHistory();
 
 const fakeSingleReview = (
     <HistoryRouter history={history}>
       <HelmetProvider>
-        <SingleReview review={fakeReview} />
+        <SingleReview review={mockReview} />
       </HelmetProvider>
     </HistoryRouter>
 );
@@ -26,7 +27,7 @@ describe('Component: SingleReview', () => {
     render(fakeSingleReview);
 
 
-    expect(screen.getByText(new RegExp(`${fakeReview.comment}`,'i'))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${fakeReview.user.name}`,'i'))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${mockReview.comment}`,'i'))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${mockReview.user.name}`,'i'))).toBeInTheDocument();
   });
 });

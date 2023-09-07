@@ -13,22 +13,19 @@ const store = mockStore({
   DATA: {error: '404'},
 });
 
-const fakeErrorModalMessage = (
-  <Provider store={store}>
-    <HistoryRouter history={history}>
-    <HelmetProvider>
-      <ErrorModalMessage />
-    </HelmetProvider>
-    </HistoryRouter>
-  </Provider>
-);
-
-
 
 describe('Component: ErrorModalMessage', () => {
   it('should render error message and close button', async () => {
 
-    render(fakeErrorModalMessage);
+    render(
+    <Provider store={store}>
+      <HistoryRouter history={history}>
+        <HelmetProvider>
+          <ErrorModalMessage />
+        </HelmetProvider>
+      </HistoryRouter>
+    </Provider>
+    );
 
     expect(screen.getByText(/Close/i)).toBeInTheDocument();
     expect(screen.getByText(/404/i)).toBeInTheDocument();

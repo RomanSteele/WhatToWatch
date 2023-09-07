@@ -8,11 +8,12 @@ import { fakeUserData } from '../../utils/mocks';
 import HistoryRouter from '../history-route/history-route';
 import UserBlockSignOut from './user-block-sign-out';
 
+const mockUserData = fakeUserData;
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
 
 const store = mockStore({
-  USER: {userLoginData: fakeUserData, authorizationStatus: AuthorizationStatus.Auth},
+  USER: {userLoginData: mockUserData, authorizationStatus: AuthorizationStatus.Auth},
 });
 
 describe('Component: UserBlockSignOut', () => {
