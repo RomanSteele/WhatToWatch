@@ -22,12 +22,11 @@ root.render(
   <>
     <Provider store={store}>
       <ErrorModalMessage/>
-      <HelmetProvider>
-    <HistoryRouter history = {browserHistory}>
-        <App />
-
-        </HistoryRouter>
-  </HelmetProvider>
+        <HelmetProvider>
+          <HistoryRouter history = {browserHistory}>
+            <App />
+          </HistoryRouter>
+        </HelmetProvider>
     </Provider>
   </>,
 );
