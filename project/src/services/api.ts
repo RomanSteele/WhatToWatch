@@ -13,7 +13,7 @@ const StatusCodeMapping: Record<number, boolean> = {
 
 const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
 
-const BACKEND_URL = 'https://9.react.pages.academy/wtw';
+const BACKEND_URL = 'https://14.react.htmlacademy.pro/wtw';
 const REQUEST_TIMEOUT = 5000;
 
 
